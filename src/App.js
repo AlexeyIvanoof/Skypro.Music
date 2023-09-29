@@ -1,16 +1,13 @@
+import './App.css'
+import { Index } from './top-index'
 
-import './App.css';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-     
-        <p className="AppText">
-        Здесь скоро будет Skypro.Music
-        </p>
-        
+    <div>
+      <Index />
     </div>
-  );
+    
+  )
 }
 
-export default App;
