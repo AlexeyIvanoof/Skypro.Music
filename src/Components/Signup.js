@@ -28,7 +28,7 @@ export function Signup() {
               placeholder="Повторите пароль"
             />
             <button className="modal__btn-signup-ent">
-              <a href="Top-index.js">Зарегистрироваться</a>
+              <a href="TopIndex.js">Зарегистрироваться</a>
             </button>
           </form>
         </div>

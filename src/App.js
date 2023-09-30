@@ -1,5 +1,5 @@
 import './App.css'
-import { Index } from './top-index'
+import { Index } from './Components/TopIndex.js'
 
 
 export default function App() {
