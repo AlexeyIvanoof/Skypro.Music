@@ -1,4 +1,4 @@
-import { PlayList_1, PlayList_2, PlayList_3 } from "./PlayList"
+import { PlayList } from "./PlayList"
 
 
 export function Sidebar() {
@@ -15,10 +15,10 @@ export function Sidebar() {
         <div className="sidebar__block">
           <div className="sidebar__list">
            
-           <PlayList_1 />
-           <PlayList_2 />
-           <PlayList_3 />
-           
+           <PlayList img = "img/playlist01.png"/>
+           <PlayList img = "img/playlist02.png" />
+           <PlayList img = "img/playlist03.png"/>
+
           </div>
         </div>
       </div>
