@@ -1,7 +1,7 @@
 import { PlayList } from "./PlayList"
+import { SkeletonSidebarList } from "./skeleton/SkeletonSidebar"
 
-
-export function Sidebar() {
+export function Sidebar({isLoaded}) {
     return (
         <div className="main__sidebar sidebar">
         <div className="sidebar__personal">
@@ -15,9 +15,9 @@ export function Sidebar() {
         <div className="sidebar__block">
           <div className="sidebar__list">
            
-           <PlayList img = "img/playlist01.png"/>
-           <PlayList img = "img/playlist02.png" />
-           <PlayList img = "img/playlist03.png"/>
+          {isLoaded ? <PlayList img = "img/playlist01.png"/>: <SkeletonSidebarList />}
+          {isLoaded ? <PlayList img = "img/playlist02.png" />: <SkeletonSidebarList />}
+          {isLoaded ? <PlayList img = "img/playlist03.png"/>: <SkeletonSidebarList />}
 
           </div>
         </div>
