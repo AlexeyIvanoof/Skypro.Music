@@ -1,26 +1,27 @@
 import { Track} from "./Track"
+import { SkeletonTrackItems } from "./skeleton/SkeletonPlayList"
 
-export function Content() {
+export function Content({ isLoaded }) {
     return (
         <div className="content__playlist playlist">
        
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
-       < Track />
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
+       {isLoaded ? < Track />: <SkeletonTrackItems />}
 
       </div>
     )
