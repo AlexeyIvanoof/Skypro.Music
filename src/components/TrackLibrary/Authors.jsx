@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import * as S from './TrackLibrary.styles.js'
+
 const Authors = [
     "Nero",
     "Tom Boxer",
@@ -10,15 +12,15 @@ const Authors = [
   ];
   const list = Authors.map((Author) => (
     <li>
-      <a href="#" className="filter__list-item">
+      <S.FilterListItem href="#">
         {Author}
-      </a>
+      </S.FilterListItem>
     </li>
   ));
   export  function ShowAuthors() {
     return (
-        <div className="filter__menu">
-      <ul className="filter__list">{list}</ul>
-    </div>
+        <S.FilterMenu>
+      <S.FilterList>{list}</S.FilterList>
+    </S.FilterMenu>
   );
 }  

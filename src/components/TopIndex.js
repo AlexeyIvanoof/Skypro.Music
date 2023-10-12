@@ -1,8 +1,9 @@
 import { AudioPlayer } from "./AudioPlayer"
 import { TrackList } from "./TrackList"
 import { Sidebar } from "./Sidebar"
-import { MainNav } from "./NavMenu"
+import { MainNav } from "./navMenu/NavMenu"
 import { useState, useEffect } from 'react'
+import * as S from './TopIndex.styles.js'
 
 
 
@@ -19,24 +20,23 @@ export function Index() {
     }
   }, [isLoaded]);
     return (
-<div className="wrapper">
-<div className="container">
-  <main className="main">
-   
+
+<S.Wrapper>
+<S.Container>
+  <S.Main>
+
   <MainNav />
 
   <TrackList isLoaded={isLoaded} />
 
   <Sidebar isLoaded={isLoaded}/>
    
-  </main>
+  </S.Main>
 
  < AudioPlayer isLoaded={isLoaded}/> 
 
- 
-
-  <footer className="footer"></footer>
-</div>
-</div>
+  <S.Footer></S.Footer>
+</S.Container>
+</S.Wrapper>
     )
 };

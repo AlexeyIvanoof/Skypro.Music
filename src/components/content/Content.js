@@ -1,9 +1,10 @@
-import { Track} from "./Track"
-import { SkeletonTrackItems } from "./skeleton/SkeletonPlayList"
+import { Track } from "../Track"
+import { SkeletonTrackItems } from "../skeleton/SkeletonPlayList"
+import * as S from './Content.styles.js'
 
 export function Content({ isLoaded }) {
     return (
-        <div className="content__playlist playlist">
+        <S.ContentPlaylist>
        
        {isLoaded ? < Track />: <SkeletonTrackItems />}
        {isLoaded ? < Track />: <SkeletonTrackItems />}
@@ -23,6 +24,6 @@ export function Content({ isLoaded }) {
        {isLoaded ? < Track />: <SkeletonTrackItems />}
        {isLoaded ? < Track />: <SkeletonTrackItems />}
 
-      </div>
+      </S.ContentPlaylist>
     )
 };

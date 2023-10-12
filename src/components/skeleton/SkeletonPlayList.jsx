@@ -1,16 +1,16 @@
-import "./SkeletonPlayList.css";
+import * as S from './SkeletonPlayList.styles.js'
 
 export  function SkeletonTrackItems() {
   return (
-    <div className="playlist__item">
-      <div className="playlist__track track">
-        <div className="track__title">
-          <div className="skelet-track__title-image"></div>
-          <div className="skelet-track__title-text"></div>
-        </div>
-        <div className="skelet-track__author"></div>
-        <div className="skelet-track__album"></div>
-      </div>
-    </div>
+    < S.PlaylistItem>
+      <S.PlaylistTrack>
+        <S.TrackTitle>
+          <S.SkeletTrackTitleImage></S.SkeletTrackTitleImage>
+          <S.SkeletTrackText ></S.SkeletTrackText>
+        </S.TrackTitle>
+        <S.SkeletTrackAuthor></S.SkeletTrackAuthor>
+        <S.SkeletTrackAlbum></S.SkeletTrackAlbum>
+      </S.PlaylistTrack>
+    </S.PlaylistItem>
   );
 }

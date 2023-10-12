@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import * as S from './TrackLibrary.styles.js'
+
 const Genres = [
     "Pop",
     "Rock",
@@ -12,16 +14,16 @@ const Genres = [
   ];
   const list = Genres.map((Genre) => (
     <li>
-      <a href="#" className="filter__list-item">
+      <S.FilterListItem href="#">
         {Genre}
-      </a>
+      </S.FilterListItem>
     </li>
   ));
   
   export  function ShowGenres() {
     return (
-        <div className="filter__menu">
-        <ul className="filter__list">{list}</ul>
-      </div>
+        <S.FilterMenu>
+        < S.FilterList>{list}</S.FilterList>
+      </S.FilterMenu>
     );
   }

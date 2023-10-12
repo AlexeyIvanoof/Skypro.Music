@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import * as S from './TrackLibrary.styles.js'
+
 const Years = [
     "1997",
     "1986",
@@ -15,16 +17,16 @@ const Years = [
   ];
   const list = Years.map((Year) => (
     <li>
-      <a href="#" className="filter__list-item">
+      <S.FilterListItem href="#">
         {Year}
-      </a>
+      </S.FilterListItem>
     </li>
   ));
   
   export  function ShowYears() {
     return (
-        <div className="filter__menu">
-        <ul className="filter__list">{list}</ul>
-      </div>
+        <S.FilterMenu>
+        <S.FilterList>{list}</S.FilterList>
+      </S.FilterMenu>
     );
   }
