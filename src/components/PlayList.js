@@ -1,15 +1,15 @@
+import * as S from './PlayList.styles.js'
 
 export function PlayList(props) {
     return (
-<div className="sidebar__item">
-              <a className="sidebar__link" href="#">
-                <img
-                  className="sidebar__img"
+<S.SidebarItem>
+              <S.SidebarLink href="#">
+                <S.SidebarImg
                   src={props.img}
                   alt="day's playlist"
                 />
-              </a>
-            </div>
+              </S.SidebarLink>
+            </S.SidebarItem>
     )
 };
 

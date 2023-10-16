@@ -1,13 +1,13 @@
 /*/реализован скелет загрузки Sidebar/*/
+import * as S from './SkeletonSidebar.styles.js'
 
-import "./SkeletonSidebar.css";
 
 export function SkeletonSidebarList() {
   return (
-    <div className="sidebar__list">
-      <div className="skelet-sidebar__item"></div>
-      <div className="skelet-sidebar__item"></div>
-      <div className="skelet-sidebar__item"></div>
-    </div>
+    <S.SidebarList>
+      <S.SkeletSidebarItem></S.SkeletSidebarItem>
+      <S.SkeletSidebarItem></S.SkeletSidebarItem>
+      <S.SkeletSidebarItem></S.SkeletSidebarItem>
+    </S.SidebarList>
   );
 }
