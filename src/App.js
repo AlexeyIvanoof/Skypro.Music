@@ -1,5 +1,7 @@
-import { Index } from './components/TopIndex'
+import { useState } from "react";
 import styled, {createGlobalStyle} from 'styled-components'
+import { AppRoutes } from './routes'
+import { SigninLogin } from "./Authorization";
 
 const GlobalStyle = createGlobalStyle
 `.App {
@@ -44,10 +46,21 @@ body {
 
 
 export default function App() {
+
+  const [user, setUser] = useState(null);
+
+  const handleLogin = () => setUser({ login: "taradam" });
+
+  const handleLogout = () => setUser(null);
+
   return (
     <div>
+
+      <SigninLogin user={user}
+          onAuthButtonClick={user ? handleLogout : handleLogin}/>
+
+      <AppRoutes user={user} />
       <GlobalStyle />
-      <Index />
     </div>
     
   )

@@ -47,7 +47,8 @@ display: flex;
 flex-direction: column;
 -webkit-box-pack: start;
 -ms-flex-pack: start;
-justify-content: flex-start;`
+justify-content: flex-start;
+`
 
 export const SidebarList = styled.div
 `display: -webkit-box;
@@ -59,4 +60,6 @@ display: flex;
 flex-direction: column;
 -webkit-box-align: center;
 -ms-flex-align: center;
-align-items: center;`
+align-items: center;
+`
+

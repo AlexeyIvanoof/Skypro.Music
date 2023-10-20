@@ -1,9 +1,12 @@
-export function Signup() {
+import "./Signin.css"
+import { Link } from "react-router-dom";
+
+export function Signin() {
   return (
     <div className="wrapper">
-      <div className="container-signup">
+      <div className="container-enter">
         <div className="modal__block">
-          <form className="modal__form-login">
+          <form className="modal__form-login" action="#">
             <a href="../">
               <div className="modal__logo">
                 <img src="../img/logo_modal.png" alt="logo" />
@@ -16,19 +19,20 @@ export function Signup() {
               placeholder="Почта"
             />
             <input
-              className="modal__input password-first"
+              className="modal__input password"
               type="password"
               name="password"
               placeholder="Пароль"
             />
-            <input
-              className="modal__input password-double"
-              type="password"
-              name="password"
-              placeholder="Повторите пароль"
-            />
-            <button className="modal__btn-signup-ent">
-              <a href="TopIndex.js">Зарегистрироваться</a>
+            <button className="modal__btn-enter">
+              <Link to="index">
+              Войти
+              </Link>
+            </button>
+            <button className="modal__btn-signup">
+              <Link to="Signup">
+              Зарегистрироваться
+              </Link>
             </button>
           </form>
         </div>

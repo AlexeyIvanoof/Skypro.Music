@@ -1,13 +1,13 @@
-import { AudioPlayer } from "./AudioPlayer"
-import { TrackList } from "./TrackList"
-import { Sidebar } from "./Sidebar"
-import { MainNav } from "./navMenu/NavMenu"
+import { AudioPlayer } from "../../components/AudioPlayer"
+import { MyTrackList } from "../../components/MyTrackList"
+import { MainNav } from "../../components/navMenu/NavMenu"
 import { useState, useEffect } from 'react'
-import * as S from './TopIndex.styles.js'
+import * as S from './MyPlayList.styles'
 
 
 
-export function Index() {
+export function MyPlayList() {
+  
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -27,9 +27,7 @@ export function Index() {
 
   <MainNav />
 
-  <TrackList isLoaded={isLoaded} />
-
-  <Sidebar isLoaded={isLoaded}/>
+  <MyTrackList isLoaded={isLoaded} />
    
   </S.Main>
 
