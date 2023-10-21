@@ -1,7 +1,7 @@
 import "./Signin.css"
 import { Link } from "react-router-dom";
 
-export function Signin() {
+export function Signin({ user, onAuthButtonClick }) {
   return (
     <div className="wrapper">
       <div className="container-enter">
@@ -29,10 +29,9 @@ export function Signin() {
               Войти
               </Link>
             </button>
-            <button className="modal__btn-signup">
-              <Link to="Signup">
-              Зарегистрироваться
-              </Link>
+            <button className="modal__btn-signup" onClick={onAuthButtonClick}>
+               {user ? "Авторизован" : "Не авторизован"}
+          
             </button>
           </form>
         </div>

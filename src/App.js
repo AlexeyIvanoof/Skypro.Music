@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled, {createGlobalStyle} from 'styled-components'
 import { AppRoutes } from './routes'
-import { SigninLogin } from "./Authorization";
+
 
 const GlobalStyle = createGlobalStyle
 `.App {
@@ -56,8 +56,7 @@ export default function App() {
   return (
     <div>
 
-      <SigninLogin user={user}
-          onAuthButtonClick={user ? handleLogout : handleLogin}/>
+     
 
       <AppRoutes user={user} />
       <GlobalStyle />
