@@ -12,10 +12,15 @@ export const AppRoutes = () => {
 
   const [user, setUser] = useState(null);
 
-  const handleLogin = () => setUser({ login: "taradam" });
+  const handleLogin = () => {
+    localStorage.setItem('user', 'true')
 
-  const handleLogout = () => setUser(null);
-
+    setUser({ login: "taradam" });
+  }
+  const handleLogout = () => {
+    
+    setUser(null);
+  }
     return (
       <Routes>
         <Route path="/" element={<Signin user={user}

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import * as S from './styles'
-import { categoryArr } from '../../components/utilis/categoryes'
+import { categoryArr } from '../../components/utilits/categoryes'
 
 export function Category() {
   const params = useParams()

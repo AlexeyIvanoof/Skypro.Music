@@ -1,5 +1,5 @@
 import * as S from './Track.styles.js'
-import { trackArr } from './utilis/trackArr.js'
+import { trackArr } from './utilits/trackArr.js'
 
 export function Track({ isLoaded }) {
   const fullPlayList = trackArr.map((track) => (
