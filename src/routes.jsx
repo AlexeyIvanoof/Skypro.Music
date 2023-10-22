@@ -13,6 +13,7 @@ export const AppRoutes = () => {
   const [user, setUser] = useState(null);
 
   const handleLogin = () => {
+    
     localStorage.setItem('user', 'true')
 
     setUser({ login: "taradam" });
