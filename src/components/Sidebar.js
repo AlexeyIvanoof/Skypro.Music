@@ -1,9 +1,21 @@
-import { PlayList } from "./PlayList"
-import { SkeletonSidebarList } from "./skeleton/SkeletonSidebar"
 import * as S from './Sidebar.styles.js'
 import {NavLink } from "react-router-dom";
+import { categoryArr } from './utilits/categoryes.js';
 
 export function Sidebar({isLoaded}) {
+
+  const fullCategory = categoryArr.map((category) => (
+    <S.SidebarItem key={category.id}>
+      {isLoaded ? (
+        <NavLink to={`/category/${category.id}`}>
+          <S.SidebarImg src={category.img} alt={category.alt} />
+        </NavLink>
+      ) : (
+        <S.SkeletonSidebar> </S.SkeletonSidebar>
+      )}
+    </S.SidebarItem>
+  ))
+
     return (
         <S.MainSidebar>
         <S.SidebarPesonal>
@@ -19,20 +31,12 @@ export function Sidebar({isLoaded}) {
         <S.SidebarBlock>
           <S.SidebarList>
 
-          <NavLink to="/PlaylistOfDay">
-          {isLoaded ? <PlayList img = "img/playlist01.png"/>: <SkeletonSidebarList />}
-          </NavLink>
-
-          <NavLink to="/100DanceHits">
-          {isLoaded ? <PlayList img = "img/playlist02.png" />: <SkeletonSidebarList />}
-          </NavLink>
-
-          <NavLink to="/IndieCharge">
-          {isLoaded ? <PlayList img = "img/playlist03.png"/>: <SkeletonSidebarList />}
-          </NavLink>
+          <S.SidebarList>{fullCategory}</S.SidebarList>
 
           </S.SidebarList>
         </S.SidebarBlock>
       </S.MainSidebar>
     )
 };
+
+

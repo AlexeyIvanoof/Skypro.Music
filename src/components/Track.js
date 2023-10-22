@@ -1,39 +1,65 @@
 import * as S from './Track.styles.js'
+import { trackArr } from './utilits/trackArr.js'
 
-export function Track() {
-    return (
-      <S.PlaylistItem>
+export function Track({ isLoaded }) {
+  const fullPlayList = trackArr.map((track) => (
+    <S.PlaylistItem key={track.id}>
       <S.PlaylistTrack>
         <S.TrackTitle>
-          <S.TrackTitleImage>
-            <S.TrackTitleSvg alt="music">
-              <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-            </S.TrackTitleSvg>
-          </S.TrackTitleImage>
-          <S.TrackTitle>
-            <S.TrackTitleLink href="http://">
-              Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-            </S.TrackTitleLink>
-          </S.TrackTitle>
+          {isLoaded ? (
+            <S.TrackTitleImage>
+              <S.TrackTitleSvg alt="music">
+                <use xlinkHref="img/icon/sprite.svg#icon-note" />
+              </S.TrackTitleSvg>
+            </S.TrackTitleImage>
+          ) : (
+            <S.SkeletonTitleImage> </S.SkeletonTitleImage>
+          )}
+
+          {isLoaded ? (
+            <S.TrackTitleText>
+              <S.TrackTitleLink href="http://">
+                {track.trackTitleLink.title} <S.TrackTitleSpan />
+              </S.TrackTitleLink>
+            </S.TrackTitleText>
+          ) : (
+            <S.SkeletonTitle> </S.SkeletonTitle>
+          )}
         </S.TrackTitle>
-        <S.TrackAuthor>
-          <S.TrackAuthorLink href="http://">
-            Nero
-          </S.TrackAuthorLink>
-        </S.TrackAuthor>
-        <S.TrackAlbum>
-          <S.TrackAlbumLink href="http://">
-            Welcome Reality
-          </S.TrackAlbumLink>
-        </S.TrackAlbum>
-        <div>
-          <S.TrackTimeSvg alt="time">
-            <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-          </S.TrackTimeSvg>
-          <S.TrackTimeText>4:44</S.TrackTimeText>
-        </div>
+
+        {isLoaded ? (
+          <S.TrackAuthor>
+            <S.TrackAuthorLink href="http://">
+              {track.trackAuthorLink}
+            </S.TrackAuthorLink>
+          </S.TrackAuthor>
+        ) : (
+          <S.SkeletonAuthor> </S.SkeletonAuthor>
+        )}
+
+        {isLoaded ? (
+          <>
+            <S.TrackAlbum>
+              <S.TrackAlbumLink href="http://">
+                {track.trackAlbumLink}
+              </S.TrackAlbumLink>
+            </S.TrackAlbum>
+            <S.TrackTime>
+              <S.TrackTimeSvg alt="time">
+                <use xlinkHref="img/icon/sprite.svg#icon-like" />
+              </S.TrackTimeSvg>
+              <S.TrackTimeText>{track.trackTimeText}</S.TrackTimeText>
+            </S.TrackTime>
+          </>
+        ) : (
+          <S.SkeletonAlbum> </S.SkeletonAlbum>
+        )}
       </S.PlaylistTrack>
     </S.PlaylistItem>
-    )
-};
-
+  ))
+  return (
+    <S.ContentPlaylist>
+      {fullPlayList}
+    </S.ContentPlaylist>
+  )
+}
