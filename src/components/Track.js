@@ -1,5 +1,5 @@
 import * as S from './Track.styles.js'
-import { trackArr } from './utilits/trackArr.js'
+import { trackArr } from './utilis/trackArr.js'
 
 export function Track({ isLoaded }) {
   const fullPlayList = trackArr.map((track) => (
@@ -57,9 +57,5 @@ export function Track({ isLoaded }) {
       </S.PlaylistTrack>
     </S.PlaylistItem>
   ))
-  return (
-    <S.ContentPlaylist>
-      {fullPlayList}
-    </S.ContentPlaylist>
-  )
+  return <S.ContentPlaylist>{fullPlayList}</S.ContentPlaylist>
 }

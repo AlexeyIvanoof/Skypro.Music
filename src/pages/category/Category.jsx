@@ -1,11 +1,13 @@
-import { useParams } from 'react-router-dom';
-import * as S from './styles';
-import { categoryArr } from '../../components/utilits/categoryes';
+import { useParams } from 'react-router-dom'
+import * as S from './styles'
+import { categoryArr } from '../../components/utilis/categoryes'
 
-export  function Category() {
-  const params = useParams();
+export function Category() {
+  const params = useParams()
 
-  const curentcategory = categoryArr.find((category) => category.id === Number(params.id));
+  const curentcategory = categoryArr.find(
+    (category) => category.id === Number(params.id),
+  )
 
   return (
     <S.CategoryBlock>
