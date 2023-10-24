@@ -1,11 +1,11 @@
 import * as S from './Track.styles.js'
 import { trackArr } from './utilits/trackArr.js'
 
-export function Track({ isLoaded }) {
+export function Track({ isLoaded, handleCurrentTrack}) {
   const fullPlayList = trackArr.map((track) => (
-    <S.PlaylistItem key={track.id}>
-      <S.PlaylistTrack>
-        <S.TrackTitle>
+    <S.PlaylistItem key={track.id} >
+      <S.PlaylistTrack onClick={() => handleCurrentTrack(track)}>
+        <S.TrackTitle >
           {isLoaded ? (
             <S.TrackTitleImage>
               <S.TrackTitleSvg alt="music">
@@ -18,7 +18,7 @@ export function Track({ isLoaded }) {
 
           {isLoaded ? (
             <S.TrackTitleText>
-              <S.TrackTitleLink href="http://">
+              <S.TrackTitleLink href>
                 {track.trackTitleLink.title} <S.TrackTitleSpan />
               </S.TrackTitleLink>
             </S.TrackTitleText>
@@ -29,7 +29,7 @@ export function Track({ isLoaded }) {
 
         {isLoaded ? (
           <S.TrackAuthor>
-            <S.TrackAuthorLink href="http://">
+            <S.TrackAuthorLink href>
               {track.trackAuthorLink}
             </S.TrackAuthorLink>
           </S.TrackAuthor>
@@ -40,7 +40,7 @@ export function Track({ isLoaded }) {
         {isLoaded ? (
           <>
             <S.TrackAlbum>
-              <S.TrackAlbumLink href="http://">
+              <S.TrackAlbumLink href>
                 {track.trackAlbumLink}
               </S.TrackAlbumLink>
             </S.TrackAlbum>

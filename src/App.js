@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled, {createGlobalStyle} from 'styled-components'
 import { AppRoutes } from './routes'
-
+import { AudioPlayer } from "./components/AudioPlayer";
 
 const GlobalStyle = createGlobalStyle
 `.App {
@@ -47,18 +47,18 @@ body {
 
 export default function App() {
 
-  const [user, setUser] = useState(null);
+  const [user] = useState(null);
 
-  const handleLogin = () => setUser({ login: "taradam" });
-
-  const handleLogout = () => setUser(null);
+  const [currentTrack] = useState(null);
 
   return (
     <div>
 
-     
+{currentTrack && (
+        <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
+        )}
 
-      <AppRoutes user={user} />
+      <AppRoutes user={user} currentTrack={currentTrack}/>
       <GlobalStyle />
     </div>
     

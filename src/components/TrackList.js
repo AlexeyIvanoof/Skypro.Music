@@ -2,7 +2,7 @@ import { Content } from "./content/Content"
 import { Filter } from "./TrackFilters"
 import * as S from './TrackList.styles.js'
 
-export function TrackList({isLoaded}) {
+export function TrackList({isLoaded,  handleCurrentTrack , tracks ,loadingTracksError}) {
     return (
         <S.MainCenterblock>
         <S.CenterblockSearch>
@@ -31,7 +31,9 @@ export function TrackList({isLoaded}) {
             </S.PlaylistTitleCol04>
           </S.ContentTitlePlaylist>
         
-         <Content  isLoaded={isLoaded}/>
+         <Content  isLoaded={isLoaded}  tracks={tracks}
+              handleCurrentTrack={handleCurrentTrack}
+              loadingTracksError={loadingTracksError}/>
 
         </S.CenterblockContent>
       </S.MainCenterblock>

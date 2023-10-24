@@ -2,8 +2,10 @@ import { Content } from "./content/Content"
 import * as S from './TrackList.styles.js'
 import * as C from './Sidebar.styles.js'
 import {NavLink } from "react-router-dom";
+import { useState, useEffect } from 'react'
 
-export function MyTrackList({isLoaded}) {
+
+export function MyTrackList({isLoaded, tracks, loadingTracksError, handleCurrentTrack}) {
     return (
         <S.MainCenterblock>
         <S.CenterblockSearch>
@@ -41,8 +43,9 @@ export function MyTrackList({isLoaded}) {
             </S.PlaylistTitleCol04>
           </S.ContentTitlePlaylist>
         
-         <Content  isLoaded={isLoaded}/>
-
+          <Content  isLoaded={isLoaded}  tracks={tracks}
+              handleCurrentTrack={handleCurrentTrack}
+              loadingTracksError={loadingTracksError}/>
         </S.CenterblockContent>
       </S.MainCenterblock>
     )

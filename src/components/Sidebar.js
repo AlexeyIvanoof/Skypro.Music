@@ -2,11 +2,11 @@ import * as S from './Sidebar.styles.js'
 import {NavLink } from "react-router-dom";
 import { categoryArr } from './utilits/categoryes.js';
 
-export function Sidebar({isLoaded}) {
+export function Sidebar({isLoaded, loadingTracksError }) {
 
   const fullCategory = categoryArr.map((category) => (
     <S.SidebarItem key={category.id}>
-      {isLoaded ? (
+      {isLoaded  && !loadingTracksError ? (
         <NavLink to={`/category/${category.id}`}>
           <S.SidebarImg src={category.img} alt={category.alt} />
         </NavLink>

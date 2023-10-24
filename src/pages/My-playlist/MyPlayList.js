@@ -6,10 +6,11 @@ import * as S from './MyPlayList.styles'
 
 
 
-export function MyPlayList() {
-  
+export function MyPlayList(handleCurrentTrack , tracks ) {
+  const [currentTrack, setCurrentTrack] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-
+   handleCurrentTrack = (track) => setCurrentTrack(track);
+   
   useEffect(() => {
     if (!isLoaded) {
       const timeout = setTimeout(() => {
@@ -27,11 +28,15 @@ export function MyPlayList() {
 
   <MainNav />
 
-  <MyTrackList isLoaded={isLoaded} />
+  <MyTrackList isLoaded={isLoaded} tracks={tracks}
+              handleCurrentTrack={handleCurrentTrack}/>
    
   </S.Main>
 
- < AudioPlayer isLoaded={isLoaded}/> 
+  {currentTrack && (
+        <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
+        )}
+
 
   <S.Footer></S.Footer>
 </S.Container>
