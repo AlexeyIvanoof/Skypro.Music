@@ -1,5 +1,7 @@
-import { Index } from './components/TopIndex'
+import { useState } from "react";
 import styled, {createGlobalStyle} from 'styled-components'
+import { AppRoutes } from './routes'
+import { AudioPlayer } from "./components/AudioPlayer";
 
 const GlobalStyle = createGlobalStyle
 `.App {
@@ -44,10 +46,20 @@ body {
 
 
 export default function App() {
+
+  const [user] = useState(null);
+
+  const [currentTrack] = useState(null);
+
   return (
     <div>
+
+{currentTrack && (
+        <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
+        )}
+
+      <AppRoutes user={user} currentTrack={currentTrack}/>
       <GlobalStyle />
-      <Index />
     </div>
     
   )

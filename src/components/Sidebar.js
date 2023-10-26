@@ -1,27 +1,42 @@
-import { PlayList } from "./PlayList"
-import { SkeletonSidebarList } from "./skeleton/SkeletonSidebar"
 import * as S from './Sidebar.styles.js'
+import {NavLink } from "react-router-dom";
+import { categoryArr } from './utilits/categoryes.js';
 
-export function Sidebar({isLoaded}) {
+export function Sidebar({isLoaded, loadingTracksError }) {
+
+  const fullCategory = categoryArr.map((category) => (
+    <S.SidebarItem key={category.id}>
+      {isLoaded  && !loadingTracksError ? (
+        <NavLink to={`/category/${category.id}`}>
+          <S.SidebarImg src={category.img} alt={category.alt} />
+        </NavLink>
+      ) : (
+        <S.SkeletonSidebar> </S.SkeletonSidebar>
+      )}
+    </S.SidebarItem>
+  ))
+
     return (
         <S.MainSidebar>
         <S.SidebarPesonal>
-          <S.SidebarPesonalName>Sergey.Ivanov</S.SidebarPesonalName>
+          <S.SidebarPesonalName>Aleksey.Ivanov</S.SidebarPesonalName>
+          <NavLink to="/">
           <S.SidebarIcon>
             <svg alt="logout">
               <use xlinkHref="img/icon/sprite.svg#logout"></use>
             </svg>
           </S.SidebarIcon>
+          </NavLink>
         </S.SidebarPesonal>
         <S.SidebarBlock>
           <S.SidebarList>
-           
-          {isLoaded ? <PlayList img = "img/playlist01.png"/>: <SkeletonSidebarList />}
-          {isLoaded ? <PlayList img = "img/playlist02.png" />: <SkeletonSidebarList />}
-          {isLoaded ? <PlayList img = "img/playlist03.png"/>: <SkeletonSidebarList />}
+
+          <S.SidebarList>{fullCategory}</S.SidebarList>
 
           </S.SidebarList>
         </S.SidebarBlock>
       </S.MainSidebar>
     )
 };
+
+

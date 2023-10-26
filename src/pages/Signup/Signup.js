@@ -1,3 +1,6 @@
+import "./Signup.css"
+import { Link } from "react-router-dom";
+
 export function Signup() {
   return (
     <div className="wrapper">
@@ -28,7 +31,9 @@ export function Signup() {
               placeholder="Повторите пароль"
             />
             <button className="modal__btn-signup-ent">
-              <a href="TopIndex.js">Зарегистрироваться</a>
+              <Link to="/">
+              Зарегистрироваться
+              </Link>
             </button>
           </form>
         </div>

@@ -4,39 +4,63 @@ import { Sidebar } from "./Sidebar"
 import { MainNav } from "./navMenu/NavMenu"
 import { useState, useEffect } from 'react'
 import * as S from './TopIndex.styles.js'
-
+import { GetAllTracks } from "../Api"
 
 
 export function Index() {
-  const [isLoaded, setIsLoaded] = useState(false);
+ 
+const [isLoaded, setIsLoaded] = useState(false);
+const [tracks, setArrTracks] = useState([]);
+const [currentTrack, setCurrentTrack] = useState(null);
+const [loadingTracksError, setLoadingTracksError] = useState(null);
+const handleCurrentTrack = (track) => setCurrentTrack(track);
 
-  useEffect(() => {
-    if (!isLoaded) {
-      const timeout = setTimeout(() => {
-        setIsLoaded(true);
-      }, 5000);
+useEffect(() => {
 
-      return () => clearTimeout(timeout); 
-    }
-  }, [isLoaded]);
-    return (
+  GetAllTracks().then((track) => {
+    setArrTracks(track);
+  })
+  .catch((error) => {
+  setLoadingTracksError(error.message);
+  });
+}, []);
+
+  
+useEffect(() => {
+  if (!isLoaded) {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }
+}, [isLoaded]);
+
+  return (
 
 <S.Wrapper>
 <S.Container>
-  <S.Main>
+<S.Main>
 
-  <MainNav />
+<MainNav />
 
-  <TrackList isLoaded={isLoaded} />
 
-  <Sidebar isLoaded={isLoaded}/>
-   
-  </S.Main>
+<TrackList   isLoaded={isLoaded}
+            tracks={tracks}
+            handleCurrentTrack={handleCurrentTrack}
+            loadingTracksError={loadingTracksError}
+             />
 
- < AudioPlayer isLoaded={isLoaded}/> 
+<Sidebar isLoaded={isLoaded}  loadingTracksError={loadingTracksError}/>
+ 
+</S.Main>
 
-  <S.Footer></S.Footer>
+{currentTrack && (
+        <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
+        )}
+
+<S.Footer></S.Footer>
 </S.Container>
 </S.Wrapper>
-    )
+  )
 };

@@ -1,8 +1,11 @@
 import { Content } from "./content/Content"
-import { Filter } from "./TrackFilters"
 import * as S from './TrackList.styles.js'
+import * as C from './Sidebar.styles.js'
+import {NavLink } from "react-router-dom";
+import { useState, useEffect } from 'react'
 
-export function TrackList({isLoaded,  handleCurrentTrack , tracks ,loadingTracksError}) {
+
+export function MyTrackList({isLoaded, tracks, loadingTracksError, handleCurrentTrack}) {
     return (
         <S.MainCenterblock>
         <S.CenterblockSearch>
@@ -14,10 +17,19 @@ export function TrackList({isLoaded,  handleCurrentTrack , tracks ,loadingTracks
             placeholder="Поиск"
             name="search"
           />
+         <C.SidebarPesonal>
+          <C.SidebarPesonalName>Aleksey.Ivanov</C.SidebarPesonalName>
+          <NavLink to="/">
+          <C.SidebarIcon>
+            <svg alt="logout">
+              <use xlinkHref="img/icon/sprite.svg#logout"></use>
+            </svg>
+          </C.SidebarIcon>
+          </NavLink>
+        </C.SidebarPesonal>
+
         </S.CenterblockSearch>
-        <S.CenterblockH2>Треки</S.CenterblockH2>
-       
-                  <Filter />
+        <S.CenterblockH2>Мои треки</S.CenterblockH2>
 
         <S.CenterblockContent>
           <S.ContentTitlePlaylist>
@@ -31,10 +43,9 @@ export function TrackList({isLoaded,  handleCurrentTrack , tracks ,loadingTracks
             </S.PlaylistTitleCol04>
           </S.ContentTitlePlaylist>
         
-         <Content  isLoaded={isLoaded}  tracks={tracks}
+          <Content  isLoaded={isLoaded}  tracks={tracks}
               handleCurrentTrack={handleCurrentTrack}
               loadingTracksError={loadingTracksError}/>
-
         </S.CenterblockContent>
       </S.MainCenterblock>
     )
