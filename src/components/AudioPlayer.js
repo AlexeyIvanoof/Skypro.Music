@@ -1,37 +1,90 @@
 import TrackPlayNow from "./TrackPlay.jsx";
 import SkeletonTrackPlayNow from "./skeleton/SkeletonAudioPlayer.jsx";
 import * as S from './AudioPlayer.styles.js'
+import { useRef, useState, useEffect } from "react";
+import ProgressBar from "../ProgressBar.jsx";
+
 
 export function AudioPlayer({isLoaded, currentTrack}) {
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+  const [isLoop, setIsLoop] = useState(false);
+
+  const handleStart = () => {
+    audioRef.current.play();
+    setIsPlaying(true);
+  };
+
+  const handleStop = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+
+  const handleLoop = () => {
+    audioRef.current.loop = true;
+    setIsLoop(true);
+
+  }
+
+  const handleLoopStop = () => {
+    audioRef.current.loop = false;
+    setIsLoop(false);
+  }
+
+  const notСonfigured = () => {
+    alert ('Функция не доступна')
+  }
+
+  const togglePlay = isPlaying ? handleStop : handleStart;
+  const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
+
+  const [volume, setVolume] = useState(25);
+  
+
     return (
+<>
+      <audio controls ref={audioRef}>
+      <source src="/music/song.mp3" type="audio/mpeg" />
+    </audio>
+
         <S.Bar>
         <S.BarContent>
-          <S.BarPlayerProgress></S.BarPlayerProgress>
+        <ProgressBar></ProgressBar>
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayerControls>
+
                 <S.PlayerBtnPrev>
-                  <S.PlayerBtnPrevSvg alt="prev">
+                  <S.PlayerBtnPrevSvg alt="prev" onClick={notСonfigured }>
                     <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
                   </S.PlayerBtnPrevSvg>
                 </S.PlayerBtnPrev>
-                <S.PlayerBtnPlay>
-                  <S.PlayerBtnPlaySvg alt="play">
-                    <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
+
+                <S.PlayerBtnPlay  onClick={togglePlay}>
+                  <S.PlayerBtnPlaySvg alt="play">  
+                  {isPlaying ? (<use xlinkHref="img/icon/sprite.svg#icon-stop"></use>) : (<use xlinkHref="img/icon/sprite.svg#icon-play"></use>)}  
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
+
                 <S.PlayerBtnNext>
-                  <S.PlayerBtnNextSvg alt="next">
+                  <S.PlayerBtnNextSvg alt="next" onClick={notСonfigured }>
                     <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
                   </S.PlayerBtnNextSvg>
                 </S.PlayerBtnNext>
-                <S.PlayerBtnRepeat>
-                  <S.PlayerBtnRepeatSvg alt="repeat">
-                    <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
-                  </S.PlayerBtnRepeatSvg>
-                </S.PlayerBtnRepeat>
+
+                {isLoop ? ( <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleLoop}>
+                    <S.PlayerBtnRepeatSvgActive alt="repeat">
+                      <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+                    </S.PlayerBtnRepeatSvgActive>
+                  </S.PlayerBtnRepeat>) : (  <S.PlayerBtnRepeat className="_btn-icon" onClick={toggleLoop}>
+                    <S.PlayerBtnRepeatSvg alt="repeat">
+                      <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+                    </S.PlayerBtnRepeatSvg>
+                  </S.PlayerBtnRepeat>)}
+
                 <S.PlayerBtnShuffle>
-                  <S.PlayerBtnShuffleSvg alt="shuffle">
+                  <S.PlayerBtnShuffleSvg alt="shuffle" onClick={notСonfigured }>
                     <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
                   </S.PlayerBtnShuffleSvg>
                 </S.PlayerBtnShuffle>
@@ -42,12 +95,12 @@ export function AudioPlayer({isLoaded, currentTrack}) {
     
                 <S.TrackPlayLikeDis>
                   <S.TrackPlayLike>
-                    <S.TrackPlayLikeSvg alt="like">
+                    <S.TrackPlayLikeSvg alt="like" onClick={notСonfigured }>
                       <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
                   <S.TrackPlayDislike>
-                    <S.TrackPlayDislikeSvg alt="dislike">
+                    <S.TrackPlayDislikeSvg alt="dislike" onClick={notСonfigured }>
                       <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
                     </S.TrackPlayDislikeSvg>
                   </S.TrackPlayDislike>
@@ -62,15 +115,22 @@ export function AudioPlayer({isLoaded, currentTrack}) {
                   </S.VolumeSvg>
                 </S.VolumeImage>
                 <S.VolumeProgressBtn>
+
                   <S.VolumeProgressLine
+                    className=" _btn"
                     type="range"
                     name="range"
-                  />
+                    min={0}
+                    max={100}
+                    value={volume}
+                    onChange={(e) => setVolume(e.target.value)}/>
+                  
                 </S.VolumeProgressBtn>
               </S.VolumeContent>
             </S.BarVolumeBlock>
           </S.BarPlayerBlock>
         </S.BarContent>
       </S.Bar>
-    )
+      
+      </> )
 };

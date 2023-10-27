@@ -101,6 +101,13 @@ fill: #d9d9d9;
   cursor: pointer;
 }`
 
+export const PlayerBtnPause = styled.svg`
+fill: #D9D9D9;
+width: 15px;
+stroke: #696969;
+height: 19px;
+`
+
 export const PlayerBtnNext = styled.div
 ` margin-right: 28px;
 fill: #a53939;
@@ -140,11 +147,13 @@ padding: 5px;
   height: 12px;
   fill: transparent;
   stroke: #696969;
-  &:active{
-    fill: transparent;
-    stroke: #ffffff;
-    cursor: pointer;
-  }`
+ `
+
+  export const PlayerBtnRepeatSvgActive = styled(PlayerBtnRepeatSvg)`
+  fill: #696969;
+  stroke: #ffffff;
+  cursor: pointer;
+`
 
   export const PlayerBtnShuffle = styled.div
   `display: -webkit-box;
@@ -269,5 +278,3 @@ padding: 5px;
   export const VolumeProgressLine = styled.input
   `width: 109px;
   cursor: pointer;`
-
-  
