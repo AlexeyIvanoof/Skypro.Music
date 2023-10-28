@@ -10,6 +10,8 @@ export function AudioPlayer({isLoaded, currentTrack}) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const [isLoop, setIsLoop] = useState(false);
+  const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
+  const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
 
   const handleStart = () => {
     audioRef.current.play();
@@ -36,21 +38,48 @@ export function AudioPlayer({isLoaded, currentTrack}) {
     alert ('Функция не доступна')
   }
 
+  const onLoadedMetadata = () => {
+    setDuration(audioRef.current.duration);
+  };
+
+  const onTimeUpdate = () => {
+    setCurrentTime(audioRef.current.currentTime);
+  };
+
   const togglePlay = isPlaying ? handleStop : handleStart;
   const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
 
   const [volume, setVolume] = useState(25);
   
+// Взято из стороннего дз 
+  useEffect(() => {
+     if (currentTrack) {
+       audioRef.current.addEventListener('loadeddata', () => {
+       handleStart();
+       })
+       audioRef.current.src = currentTrack.track_file;    
+     }
+   }, [currentTrack]);//проигрывание сразу после клика на выбранный трек
+ 
+   useEffect(() => {
+     if (audioRef) {
+       audioRef.current.volume = volume / 100;
+     }
+   }, [volume, audioRef]);//настройка ползунка громкости  
+   
+  
+  useEffect(() => {
+    if (currentTrack.duration_in_seconds){
+      setDuration(audioRef.current.duration)
+  }})
+
+
 
     return (
-<>
-      <audio controls ref={audioRef}>
-      <source src="/music/song.mp3" type="audio/mpeg" />
-    </audio>
-
-        <S.Bar>
+       <S.Bar>
+        {currentTrack ? (<audio   style={{ display: 'none' }} ref={audioRef}   controls src={currentTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}   
         <S.BarContent>
-        <ProgressBar></ProgressBar>
+        <ProgressBar   duration = {duration} currentTime = {currentTime}   ></ProgressBar>
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayerControls>
@@ -62,7 +91,7 @@ export function AudioPlayer({isLoaded, currentTrack}) {
                 </S.PlayerBtnPrev>
 
                 <S.PlayerBtnPlay  onClick={togglePlay}>
-                  <S.PlayerBtnPlaySvg alt="play">  
+                  <S.PlayerBtnPlaySvg alt="play"> 
                   {isPlaying ? (<use xlinkHref="img/icon/sprite.svg#icon-stop"></use>) : (<use xlinkHref="img/icon/sprite.svg#icon-play"></use>)}  
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
@@ -132,5 +161,5 @@ export function AudioPlayer({isLoaded, currentTrack}) {
         </S.BarContent>
       </S.Bar>
       
-      </> )
+       )
 };
