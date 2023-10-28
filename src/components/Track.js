@@ -5,7 +5,7 @@ import { trackArr } from './utilits/trackArr.js'
 export function Track({ isLoaded, handleCurrentTrack}) {
   const fullPlayList = trackArr.map((track) => (
     <S.PlaylistItem key={track.id} >
-      <S.PlaylistTrack onClick={() => handleCurrentTrack(track)}>
+      <S.PlaylistTrack >
         <S.TrackTitle >
           {isLoaded ? (
             <S.TrackTitleImage>
@@ -19,8 +19,8 @@ export function Track({ isLoaded, handleCurrentTrack}) {
 
           {isLoaded ? (
             <S.TrackTitleText>
-              <S.TrackTitleLink href>
-                {track.trackTitleLink.title} <S.TrackTitleSpan />
+              <S.TrackTitleLink  onClick={() => handleCurrentTrack(track) }>
+              <S.TrackTitleSpan >{track.trackTitleLink.title} </S.TrackTitleSpan >
               </S.TrackTitleLink>
             </S.TrackTitleText>
           ) : (
@@ -30,7 +30,7 @@ export function Track({ isLoaded, handleCurrentTrack}) {
 
         {isLoaded ? (
           <S.TrackAuthor>
-            <S.TrackAuthorLink href>
+            <S.TrackAuthorLink>
               {track.trackAuthorLink}
             </S.TrackAuthorLink>
           </S.TrackAuthor>
@@ -41,7 +41,7 @@ export function Track({ isLoaded, handleCurrentTrack}) {
         {isLoaded ? (
           <>
             <S.TrackAlbum>
-              <S.TrackAlbumLink href>
+              <S.TrackAlbumLink>
                 {track.trackAlbumLink}
               </S.TrackAlbumLink>
             </S.TrackAlbum>

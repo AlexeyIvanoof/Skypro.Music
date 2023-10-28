@@ -8,7 +8,7 @@ import { ProtectedRoute } from "./components/protected-route";
 import { useState } from "react";
 import { Category } from "./pages/category/Category";
 
-export const AppRoutes = () => {
+export const AppRoutes = ({ tracks, tracksError, currentTrack, setCurrentTrack }) => {
 
   const [user, setUser] = useState(null);
 
@@ -29,9 +29,9 @@ export const AppRoutes = () => {
         <Route path="/signup" element={<Signup />} />
 
         <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/index" element={<Index />} />
-        <Route path="/myplaylist" element={<MyPlayList />} />
-        <Route path="/category/:id" element={<Category />} />
+        <Route path="/index" element={<Index tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}></Index>} />
+        <Route path="/myplaylist" element={<MyPlayList tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}></MyPlayList>} />
+        <Route path="/category/:id" element={<Category tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}></Category>} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

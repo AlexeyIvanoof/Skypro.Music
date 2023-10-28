@@ -12,6 +12,31 @@ export function AudioPlayer({isLoaded, currentTrack}) {
   const [isLoop, setIsLoop] = useState(false);
   const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
+  const [volume, setVolume] = useState(25);
+
+// Взято из стороннего дз 
+useEffect(() => {
+  if (currentTrack) {
+    audioRef.current.addEventListener('loadeddata', () => {
+    handleStart();
+    })
+    audioRef.current.src = currentTrack.track_file;    
+  }
+}, [currentTrack]);//проигрывание сразу после клика на выбранный трек
+
+useEffect(() => {
+  if (audioRef) {
+    audioRef.current.volume = volume / 100;
+  }
+}, [volume, audioRef]);//настройка ползунка громкости  
+
+
+useEffect(() => {
+ if (currentTrack.duration_in_seconds){
+   setDuration(audioRef.current.duration)
+}})
+
+
 
   const handleStart = () => {
     audioRef.current.play();
@@ -49,30 +74,8 @@ export function AudioPlayer({isLoaded, currentTrack}) {
   const togglePlay = isPlaying ? handleStop : handleStart;
   const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
 
-  const [volume, setVolume] = useState(25);
-  
-// Взято из стороннего дз 
-  useEffect(() => {
-     if (currentTrack) {
-       audioRef.current.addEventListener('loadeddata', () => {
-       handleStart();
-       })
-       audioRef.current.src = currentTrack.track_file;    
-     }
-   }, [currentTrack]);//проигрывание сразу после клика на выбранный трек
  
-   useEffect(() => {
-     if (audioRef) {
-       audioRef.current.volume = volume / 100;
-     }
-   }, [volume, audioRef]);//настройка ползунка громкости  
-   
   
-  useEffect(() => {
-    if (currentTrack.duration_in_seconds){
-      setDuration(audioRef.current.duration)
-  }})
-
 
 
     return (

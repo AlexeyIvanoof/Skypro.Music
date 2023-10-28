@@ -1,7 +1,7 @@
 import { Track } from "../Track"
 import * as S from './Content.styles.js'
 
-export function Content({ isLoaded,  handleCurrentTrack, loadingTracksError,  tracks}) {
+export function Content({ isLoaded,  handleCurrentTrack, loadingTracksError,  tracks,  currentTrack, setCurrentTrack}) {
     return (
         <S.ContentPlaylist>
     
@@ -14,6 +14,8 @@ export function Content({ isLoaded,  handleCurrentTrack, loadingTracksError,  tr
               tracks={tracks}
               handleCurrentTrack={handleCurrentTrack}
               loadingTracksError={loadingTracksError}
+              setCurrentTrack = {setCurrentTrack} 
+              currentTrack={currentTrack}
                />
 
                )}
