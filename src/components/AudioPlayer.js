@@ -10,7 +10,7 @@ export function AudioPlayer({isLoaded, currentTrack}) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const [isLoop, setIsLoop] = useState(false);
-  const [duration, setDuration] = useState(false);//duration`представляет собой общую продолжительность аудиофайла.
+  const [duration, setDuration] = useState(false);//duration представляет собой общую продолжительность аудиофайла.
   const [currentTime, setCurrentTime] = useState(0);//currentTime состояния хранит текущее время воспроизведения звука
   const [volume, setVolume] = useState(25);
 
@@ -31,12 +31,16 @@ useEffect(() => {
 }, [volume, audioRef]);//настройка ползунка громкости  
 
 
+const handleDurationChange = (e) => {
+  setCurrentTime(e.target.value);
+  audioRef.current.currentTime = e.target.value
+}//изменение ползунка прокрутки
+
+
 useEffect(() => {
  if (currentTrack.duration_in_seconds){
    setDuration(audioRef.current.duration)
 }})
-
-
 
   const handleStart = () => {
     audioRef.current.play();
@@ -75,14 +79,11 @@ useEffect(() => {
   const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
 
  
-  
-
-
     return (
        <S.Bar>
-        {currentTrack ? (<audio   style={{ display: 'none' }} ref={audioRef}   controls src={currentTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}   
+        <audio   style={{ display: 'none' }} ref={audioRef}   controls src={currentTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>   
         <S.BarContent>
-        <ProgressBar   duration = {duration} currentTime = {currentTime}   ></ProgressBar>
+        <ProgressBar  handleDurationChange ={handleDurationChange }  duration = {duration} currentTime = {currentTime} ></ProgressBar>
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayerControls>

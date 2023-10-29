@@ -10,12 +10,12 @@ export default function TrackPlayNow({currentTrack}) {
           </S.TrackPlayImage>
           <S.TrackPlayAuthor>
         <S.TrackPlayAuthorLink href="http://">
-        {currentTrack.trackAuthorLink}
+        {currentTrack ? (currentTrack.name) : (null)}
         </S.TrackPlayAuthorLink>
       </S.TrackPlayAuthor>
       <S.TrackPlayAlbum>
         <S.TrackPlayAlbumLink href="http://">
-        {currentTrack.trackAlbumLink}
+        {currentTrack ? (currentTrack.author) : (null)}
         </S.TrackPlayAlbumLink>
       </S.TrackPlayAlbum>
     </S.TrackPlayContain>

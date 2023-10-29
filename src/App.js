@@ -77,7 +77,7 @@ export default function App() {
   return (
     <div>
 
-{currentTrack && (
+         {currentTrack && (
         <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
         )}
 

@@ -67,19 +67,19 @@ line-height: 24px;
 color: rgb(105, 105, 105);
 `
 
-export default function ProgressBar() {
+export default function ProgressBar({  duration, currentTime,  handleDurationChange   }) {
 
-  const [currentTime, setCurrentTime] = useState(0);
-  const duration = 230;
+  //const [currentTime, setCurrentTime] = useState(0);
+  //const duration = 230;
 
     return (<>
         <StyledProgressInput
           type="range"
           min={'0'}
-          max={duration}
+          max={duration.toString()}
           value={currentTime}
           step={0.01}    
-          onChange={(event) => setCurrentTime(event.target.value)}
+          onChange={handleDurationChange}
           $color="#B672FF;" 
              />
           <DurationBlock>
