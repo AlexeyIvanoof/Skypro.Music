@@ -5,7 +5,7 @@ import {NavLink } from "react-router-dom";
 import { useState, useEffect } from 'react'
 
 
-export function MyTrackList({isLoaded, tracks, loadingTracksError, handleCurrentTrack}) {
+export function MyTrackList({isLoaded, tracks, loadingTracksError, handleCurrentTrack, currentTrack}) {
     return (
         <S.MainCenterblock>
         <S.CenterblockSearch>
@@ -45,7 +45,8 @@ export function MyTrackList({isLoaded, tracks, loadingTracksError, handleCurrent
         
           <Content  isLoaded={isLoaded}  tracks={tracks}
               handleCurrentTrack={handleCurrentTrack}
-              loadingTracksError={loadingTracksError}/>
+              loadingTracksError={loadingTracksError}
+              currentTrack={currentTrack}/>
         </S.CenterblockContent>
       </S.MainCenterblock>
     )

@@ -45,7 +45,7 @@ useEffect(() => {
 <MainNav />
 
 
-<TrackList   isLoaded={isLoaded}
+<TrackList  isLoaded={isLoaded}
             tracks={tracks}
             handleCurrentTrack={handleCurrentTrack}
             loadingTracksError={loadingTracksError}

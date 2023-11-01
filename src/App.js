@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled, {createGlobalStyle} from 'styled-components'
 import { AppRoutes } from './routes'
 import { AudioPlayer } from "./components/AudioPlayer";
+import { GetAllTracks } from "./Api";
 
 const GlobalStyle = createGlobalStyle
 `.App {
@@ -47,18 +48,40 @@ body {
 
 export default function App() {
 
+  const [tracks, setTracks] = useState([]);
+  const [currentTrack, setCurrentTrack] = useState (null);
+  const [tracksError, setTracksError] = useState(null)
   const [user] = useState(null);
+  const [loading, setloading] = useState (false);
 
-  const [currentTrack] = useState(null);
+  useEffect(() => {
+    async function getAllTracks (){
+   try {
+     setloading (true);//состояние загрузки началось
+     setTracksError(null);
+     await GetAllTracks().then((tracks) => {
+     console.log(tracks);//проверка что получаем из апи
+     setTracks(tracks);
+   })//получение из апи треков
+   } catch(error) {
+     setTracksError(error.message)//если ошибка
+   } finally{
+     setloading(false)//состояние загрузки закончилось после получения данных из апи
+   }
+   
+     }
+     getAllTracks ()
+   }, [])
+   
 
   return (
     <div>
 
-{currentTrack && (
+         {currentTrack && (
         <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
         )}
 
-      <AppRoutes user={user} currentTrack={currentTrack}/>
+      <AppRoutes user={user} currentTrack={currentTrack}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack}/>
       <GlobalStyle />
     </div>
     

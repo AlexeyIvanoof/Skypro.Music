@@ -3,13 +3,27 @@ import { MyTrackList } from "../../components/MyTrackList"
 import { MainNav } from "../../components/navMenu/NavMenu"
 import { useState, useEffect } from 'react'
 import * as S from './MyPlayList.styles'
+import { GetAllTracks } from "../../Api"
 
 
+export function MyPlayList() {
+  
+const [isLoaded, setIsLoaded] = useState(false);
+const [tracks, setArrTracks] = useState([]);
+const [currentTrack, setCurrentTrack] = useState(null);
+const [loadingTracksError, setLoadingTracksError] = useState(null);
+const handleCurrentTrack = (track) => setCurrentTrack(track);
 
-export function MyPlayList(handleCurrentTrack , tracks ) {
-  const [currentTrack, setCurrentTrack] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-   handleCurrentTrack = (track) => setCurrentTrack(track);
+useEffect(() => {
+
+  GetAllTracks().then((track) => {
+    setArrTracks(track);
+  })
+  .catch((error) => {
+  setLoadingTracksError(error.message);
+  });
+}, []);
+
    
   useEffect(() => {
     if (!isLoaded) {
@@ -36,7 +50,6 @@ export function MyPlayList(handleCurrentTrack , tracks ) {
   {currentTrack && (
         <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
         )}
-
 
   <S.Footer></S.Footer>
 </S.Container>
