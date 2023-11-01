@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { Signin } from "./pages/Signin/Signin"
 import { Index } from './components/TopIndex'
-import { Signup } from "./pages/Signup/Signup";
+import { AuthPage } from "./pages/AuthPage/AuthPage";
 import { NotFound } from "./pages/not-found/Not-found";
 import { MyPlayList } from "./pages/My-playlist/MyPlayList";
 import { ProtectedRoute } from "./components/protected-route";
@@ -24,12 +23,12 @@ export const AppRoutes = ({ tracks, tracksError, currentTrack, setCurrentTrack }
   }
     return (
       <Routes>
-        <Route path="/" element={<Signin user={user}
+        <Route path="/Auth" element={<AuthPage user={user} setUser={setUser}
           onAuthButtonClick={user ? handleLogout : handleLogin}/>} />
-        <Route path="/signup" element={<Signup />} />
 
-        <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/index" element={<Index tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}></Index>} />
+       <Route element={<ProtectedRoute isAllowed={Boolean(user)}/>}>
+        <Route path="/index" element={<Index setUser = {setUser}  tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}></Index>} />
+        
         <Route path="/myplaylist" element={<MyPlayList tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}></MyPlayList>} />
         <Route path="/category/:id" element={<Category tracks = {tracks} tracksError={tracksError} currentTrack={currentTrack} setCurrentTrack={setCurrentTrack}></Category>} />
         </Route>

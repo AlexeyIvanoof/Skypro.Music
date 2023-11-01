@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-export const ContentPlaylist = styled.ul`
+export const ContentPlaylist = styled.li`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

@@ -78,10 +78,10 @@ useEffect(() => {
   const togglePlay = isPlaying ? handleStop : handleStart;
   const toggleLoop = isLoop ? handleLoopStop : handleLoop ;
 
- 
+
     return (
        <S.Bar>
-        <audio   style={{ display: 'none' }} ref={audioRef}   controls src={currentTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>   
+        {currentTrack ? (<audio   style={{ display: 'none' }} ref={audioRef}   controls src={currentTrack.track_file}  onLoadedMetadata ={onLoadedMetadata} onTimeUpdate  ={onTimeUpdate } ></audio>) : (null)}   
         <S.BarContent>
         <ProgressBar  handleDurationChange ={handleDurationChange }  duration = {duration} currentTime = {currentTime} ></ProgressBar>
           <S.BarPlayerBlock>

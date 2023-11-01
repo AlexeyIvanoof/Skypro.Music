@@ -1,6 +1,6 @@
 import{ styled } from 'styled-components'
 
-export const ContentPlaylist  = styled.div`
+export const ContentPlaylist  = styled.ul`
 display: -webkit-box;
 display: -ms-flexbox;
 display: flex;
@@ -8,4 +8,5 @@ display: flex;
 -webkit-box-direction: normal;
 -ms-flex-direction: column;
 flex-direction: column;
-overflow-y: auto;`
+overflow-y: auto;
+`
