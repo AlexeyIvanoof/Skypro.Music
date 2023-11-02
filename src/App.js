@@ -77,10 +77,6 @@ export default function App() {
     localStorage.getItem("user") || null
   );
 
-   const handleLogout = () => {
-    localStorage.removeItem("user");
-    window.location.href = "/Auth";
-  };
 
   return (
     <div>
@@ -88,7 +84,7 @@ export default function App() {
          {currentTrack && (
         <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
         )}
-      <UserContext.Provider value={{ user, handleLogout }}>
+      <UserContext.Provider value={{user}}>
       <AppRoutes user={user} setUser={setUser} currentTrack={currentTrack}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack}/>
       </UserContext.Provider>
       <GlobalStyle />

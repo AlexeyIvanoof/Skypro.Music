@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles"
 import { useEffect, useState } from "react";
 import { RegistrationApi, LoginApi } from "../../Api";
@@ -11,6 +11,8 @@ export  function AuthPage({ setUser }) {
   const [offButton, setOffButton] = useState(false);
   const [isLoginMode, setIsLoginMode] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
     try {
       const response = await LoginApi({email, password});
@@ -19,7 +21,7 @@ export  function AuthPage({ setUser }) {
       setUser(response.username);
       localStorage.setItem("user", JSON.stringify(response.username));
       setOffButton(true);
-      window.location.href = "/index";
+      navigate('/index');
     } catch (currentError) {
       setError(currentError.message);
     } finally {

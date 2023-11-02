@@ -1,7 +1,14 @@
 import * as S from './NavMenu.styles.js'
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ShowMenu() {
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    localStorage.clear();  
+    navigate("/Auth", { replace: true });
+  };
+
     return (
       <S.NavMenu>
         <S.MenuList>
@@ -16,7 +23,7 @@ export default function ShowMenu() {
           </NavLink>
           </S.MenuItem>
           <S.MenuItem>
-            <S.MenuLink href="./Signin.js">Войти</S.MenuLink>
+            <S.MenuLink onClick={handleLogOut} >Выход</S.MenuLink>
           </S.MenuItem>
         </S.MenuList>
       </S.NavMenu>
