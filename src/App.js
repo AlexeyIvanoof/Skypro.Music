@@ -3,6 +3,7 @@ import styled, {createGlobalStyle} from 'styled-components'
 import { AppRoutes } from './routes'
 import { AudioPlayer } from "./components/AudioPlayer";
 import { GetAllTracks } from "./Api";
+import { UserContext } from "./Context/UserContext";
 
 const GlobalStyle = createGlobalStyle
 `.App {
@@ -51,7 +52,6 @@ export default function App() {
   const [tracks, setTracks] = useState([]);
   const [currentTrack, setCurrentTrack] = useState (null);
   const [tracksError, setTracksError] = useState(null)
-  const [user] = useState(null);
   const [loading, setloading] = useState (false);
 
   useEffect(() => {
@@ -72,7 +72,11 @@ export default function App() {
      }
      getAllTracks ()
    }, [])
-   
+
+   const [user, setUser] = useState(
+    localStorage.getItem("user") || null
+  );
+
 
   return (
     <div>
@@ -80,8 +84,9 @@ export default function App() {
          {currentTrack && (
         <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
         )}
-
-      <AppRoutes user={user} currentTrack={currentTrack}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack}/>
+      <UserContext.Provider value={{user}}>
+      <AppRoutes user={user} setUser={setUser} currentTrack={currentTrack}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack}/>
+      </UserContext.Provider>
       <GlobalStyle />
     </div>
     
