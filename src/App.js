@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import styled, {createGlobalStyle} from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 import { AppRoutes } from './routes'
-import { AudioPlayer } from "./components/AudioPlayer";
 import { GetAllTracks } from "./Api";
 import { UserContext } from "./Context/UserContext";
+import { Provider } from "react-redux";
+import { store } from "./components/store/store";
 
 const GlobalStyle = createGlobalStyle
 `.App {
@@ -53,6 +54,7 @@ export default function App() {
   const [currentTrack, setCurrentTrack] = useState (null);
   const [tracksError, setTracksError] = useState(null)
   const [loading, setloading] = useState (false);
+  
 
   useEffect(() => {
     async function getAllTracks (){
@@ -77,15 +79,13 @@ export default function App() {
     localStorage.getItem("user") || null
   );
 
-
+// обернули <AppRoutes /> в Provider
   return (
     <div>
-
-         {currentTrack && (
-        <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
-        )}
       <UserContext.Provider value={{user}}>
-      <AppRoutes user={user} setUser={setUser} currentTrack={currentTrack}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack}/>
+      <Provider store={store}>
+      <AppRoutes   user={user} setUser={setUser} currentTrack={currentTrack}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack}/>
+      </Provider>
       </UserContext.Provider>
       <GlobalStyle />
     </div>

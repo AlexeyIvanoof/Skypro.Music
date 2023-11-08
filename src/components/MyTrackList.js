@@ -2,10 +2,11 @@ import { Content } from "./content/Content"
 import * as S from './TrackList.styles.js'
 import * as C from './Sidebar.styles.js'
 import {NavLink } from "react-router-dom";
-import { useState, useEffect } from 'react'
+import {useSelector } from "react-redux";
+import {CurrentTrackSelector} from "./store/selectors/track.js";
 
-
-export function MyTrackList({isLoaded, tracks, loadingTracksError, handleCurrentTrack, currentTrack}) {
+export function MyTrackList({isLoaded, tracks, loadingTracksError, handleCurrentTrack, }) {
+  const currentTrack = useSelector (CurrentTrackSelector);
     return (
         <S.MainCenterblock>
         <S.CenterblockSearch>

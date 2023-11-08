@@ -1,29 +1,41 @@
-import { AudioPlayer } from "./AudioPlayer"
+import  AudioPlayer  from "./AudioPlayer"
 import { TrackList } from "./TrackList"
 import { Sidebar } from "./Sidebar"
 import { MainNav } from "./navMenu/NavMenu"
 import { useState, useEffect } from 'react'
 import * as S from './TopIndex.styles.js'
 import { GetAllTracks } from "../Api"
-
+import {allTracksSelector, CurrentTrackSelector,shuffleAllTracksSelector,
+  shuffleSelector} from "./store/selectors/track.js"
+import { useDispatch, useSelector} from "react-redux";
+import { setAllTracks, setCurrentTrack } from "./store/slices/track.js";
 
 export function Index() {
  
-const [isLoaded, setIsLoaded] = useState(false);
-const [tracks, setArrTracks] = useState([]);
-const [currentTrack, setCurrentTrack] = useState(null);
-const [loadingTracksError, setLoadingTracksError] = useState(null);
-const handleCurrentTrack = (track) => setCurrentTrack(track);
+  const dispatch = useDispatch();
+  
+  const [isLoaded, setIsLoaded] = useState(false);
+  const tracks = useSelector(allTracksSelector);
+  const [loadingTracksError, setLoadingTracksError] = useState(null);
+  const currentTrack = useSelector (CurrentTrackSelector)
+  const shuffle = useSelector ( shuffleSelector);
+  const shuffleAllTracks = useSelector (shuffleAllTracksSelector);
+  const arrayTracksAll = shuffle ? shuffleAllTracks :tracks;
 
-useEffect(() => {
 
-  GetAllTracks().then((track) => {
-    setArrTracks(track);
-  })
-  .catch((error) => {
-  setLoadingTracksError(error.message);
-  });
-}, []);
+  const handleCurrentTrack = (track) =>{
+    const indexCurrentTrack = arrayTracksAll.indexOf(track);
+    dispatch(setCurrentTrack({track, indexCurrentTrack}));
+  }
+  useEffect(() => {
+  
+    GetAllTracks().then((track) => {
+      dispatch(setAllTracks(track));
+    })
+    .catch((error) => {
+    setLoadingTracksError(error.message);
+    });
+  }, []);
 
   
 useEffect(() => {
@@ -55,7 +67,7 @@ useEffect(() => {
  
 </S.Main>
 
-{currentTrack && (
+{ currentTrack && (
         <AudioPlayer isLoaded={isLoaded}  currentTrack={currentTrack} />
         )}
 

@@ -1,11 +1,17 @@
-import { formatTime } from "./helpers";
-import { styled } from "styled-components";
+import styled from 'styled-components';
 
-export const StyledProgressInput = styled.input`
-  --progress-height: 8px;
+export const BarPlayerProgressTime = styled.span`
+  color: #696969;
+  text-align: right;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 16px;
+  line-height: 18px; /* 112.5% */
+  letter-spacing: 0.016px;
+`;
+
+export const BarPlayerProgress = styled.input`
+  --progress-height: 5px;
   --progress-color: #b672ff;
-  --progress-color: ${(props) => props.$color ?? "#b672ff"};
-
   --progress-bg-color: #2e2e2e;
 
   margin: 0;
@@ -56,32 +62,3 @@ export const StyledProgressInput = styled.input`
     height: var(--progress-height);
   }
 `;
-
-export const DurationBlock = styled.div`
-text-align: right;
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 24px;
-color: rgb(105, 105, 105);
-`
-
-export default function ProgressBar({  duration, currentTime,  handleDurationChange   }) {
-
-    return (<>
-        <StyledProgressInput
-          type="range"
-          min={'0'}
-          max={duration.toString()}
-          value={currentTime}
-          step={0.01}    
-          onChange={handleDurationChange}
-          $color="#B672FF;" 
-             />
-          <DurationBlock>
-              {formatTime(currentTime)} / {formatTime(duration)}
-          </DurationBlock></>
-      );
-    
-    }
-    
