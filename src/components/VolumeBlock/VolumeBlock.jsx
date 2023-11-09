@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import *as S  from "./VolumeBlockStyle";
 
 export function VolumeBlock ({audioRef}) {
-    const [volume, setVolume] = useState(50);
+    const [volume, setVolume] = useState(15);
     useEffect(() => {
         if (audioRef) {
           audioRef.current.volume = volume / 100;

@@ -3,7 +3,7 @@ import * as S from './TrackList.styles.js'
 import * as C from './Sidebar.styles.js'
 import {NavLink } from "react-router-dom";
 import {useSelector } from "react-redux";
-import {CurrentTrackSelector} from "./store/selectors/track.js";
+import {CurrentTrackSelector} from "../store/selectors/track.js";
 
 export function MyTrackList({isLoaded, tracks, loadingTracksError, handleCurrentTrack, }) {
   const currentTrack = useSelector (CurrentTrackSelector);

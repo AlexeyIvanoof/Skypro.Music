@@ -4,7 +4,7 @@ import { AppRoutes } from './routes'
 import { GetAllTracks } from "./Api";
 import { UserContext } from "./Context/UserContext";
 import { Provider } from "react-redux";
-import { store } from "./components/store/store";
+import { store } from "./store/store";
 
 const GlobalStyle = createGlobalStyle
 `.App {

@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react'
 import * as S from './MyPlayList.styles'
 import { GetAllTracks } from "../../Api"
 import {allTracksSelector, CurrentTrackSelector,shuffleAllTracksSelector,
-  shuffleSelector} from "./../../components/store/selectors/track.js"
+  shuffleSelector} from "./../../store/selectors/track.js"
 import { useDispatch, useSelector} from "react-redux";
-import { setAllTracks, setCurrentTrack } from "./../../components/store/slices/track.js";
+import { setAllTracks, setCurrentTrack } from "../../store/slices/track.js";
 
 export function MyPlayList() {
   

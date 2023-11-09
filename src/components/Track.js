@@ -1,8 +1,8 @@
 import * as S from './Track.styles.js'
 import { formatTime } from '../helpers.js'
 import {useSelector } from "react-redux";
-import { isPlayingSelector} from "./store/selectors/track.js";
-import {CurrentTrackSelector} from "./store/selectors/track.js";
+import { isPlayingSelector} from "../store/selectors/track.js";
+import {CurrentTrackSelector} from "../store/selectors/track.js";
 
 export function Track({ isLoaded, handleCurrentTrack, tracks, duration }) {
   const currentTrack = useSelector (CurrentTrackSelector);

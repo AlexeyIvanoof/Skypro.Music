@@ -6,13 +6,13 @@ import { PlayerTrackPlay } from "./PlayerTrackPlay/PlayerTrackPlay.jsx";
 import { BarPlayerProgress } from "./BarPlayerProgress/BarPlayerProgress.jsx";
 import { AudioPlayerIcons } from "./AudioPlayerIcons/AudioPlayerIcons.jsx";
 import { VolumeBlock } from "./VolumeBlock/VolumeBlock.jsx";
-import{setIsPlaying, setNextTrack,  setPrevTrack, toggleShuffleTrack} from "./store/slices/track.js"
+import{setIsPlaying, setNextTrack,  setPrevTrack, toggleShuffleTrack} from "../store/slices/track.js"
 import {
   isPlayingSelector, 
   allTracksSelector, 
   indexCurrentTrackSelector,
   shuffleAllTracksSelector,
-  shuffleSelector} from "./store/selectors/track.js"
+  shuffleSelector} from "../store/selectors/track.js"
  
 
    function AudioPlayer ({currentTrack}) {

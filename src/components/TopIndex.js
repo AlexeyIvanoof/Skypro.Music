@@ -6,9 +6,9 @@ import { useState, useEffect } from 'react'
 import * as S from './TopIndex.styles.js'
 import { GetAllTracks } from "../Api"
 import {allTracksSelector, CurrentTrackSelector,shuffleAllTracksSelector,
-  shuffleSelector} from "./store/selectors/track.js"
+  shuffleSelector} from "../store/selectors/track.js"
 import { useDispatch, useSelector} from "react-redux";
-import { setAllTracks, setCurrentTrack } from "./store/slices/track.js";
+import { setAllTracks, setCurrentTrack } from "../store/slices/track.js";
 
 export function Index() {
  
