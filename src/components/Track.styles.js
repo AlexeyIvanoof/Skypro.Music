@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-export const ContentPlaylist = styled.li`
+export const ContentPlaylist = styled.ul`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -10,7 +10,7 @@ export const ContentPlaylist = styled.li`
     flex-direction: column;
     overflow-y: auto;
   `
-export const PlaylistItem = styled.li`
+export const PlaylistItem = styled.div `
     width: 100%;
     display: block;
     margin-bottom: 12px;
@@ -169,3 +169,26 @@ width: 305px;
 export const TrackTime = styled.div``
 export const TrackTitleText = styled.div``
   
+const animationPointPulse = () => css`
+animation: pulse 0.6s ease-in-out infinite both;
+
+@keyframes pulse {
+  0%,
+  to {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+`;
+export const PointPlaying = styled.div`
+position: relative; 
+text-align: center;
+padding: 8px;
+width: 16px;
+height: 16px;
+background-color: #b672ff;
+border-radius: 50%;
+${(props) => (props.$playing ? animationPointPulse : "")};
+`;

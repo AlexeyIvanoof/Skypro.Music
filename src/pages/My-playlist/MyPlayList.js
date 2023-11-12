@@ -1,28 +1,40 @@
-import { AudioPlayer } from "../../components/AudioPlayer"
+import AudioPlayer from "../../components/AudioPlayer"
 import { MyTrackList } from "../../components/MyTrackList"
 import { MainNav } from "../../components/navMenu/NavMenu"
 import { useState, useEffect } from 'react'
 import * as S from './MyPlayList.styles'
 import { GetAllTracks } from "../../Api"
-
+import {allTracksSelector, CurrentTrackSelector,shuffleAllTracksSelector,
+  shuffleSelector} from "./../../store/selectors/track.js"
+import { useDispatch, useSelector} from "react-redux";
+import { setAllTracks, setCurrentTrack } from "../../store/slices/track.js";
 
 export function MyPlayList() {
   
-const [isLoaded, setIsLoaded] = useState(false);
-const [tracks, setArrTracks] = useState([]);
-const [currentTrack, setCurrentTrack] = useState(null);
-const [loadingTracksError, setLoadingTracksError] = useState(null);
-const handleCurrentTrack = (track) => setCurrentTrack(track);
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const tracks = useSelector(allTracksSelector);
+  const [loadingTracksError, setLoadingTracksError] = useState(null);
+  const currentTrack = useSelector (CurrentTrackSelector)
+  const shuffle = useSelector ( shuffleSelector);
+  const shuffleAllTracks = useSelector (shuffleAllTracksSelector);
+  const arrayTracksAll = shuffle ? shuffleAllTracks :tracks;
 
-useEffect(() => {
 
-  GetAllTracks().then((track) => {
-    setArrTracks(track);
-  })
-  .catch((error) => {
-  setLoadingTracksError(error.message);
-  });
-}, []);
+  const handleCurrentTrack = (track) =>{
+    const indexCurrentTrack = arrayTracksAll.indexOf(track);
+    dispatch(setCurrentTrack({track, indexCurrentTrack}));
+  }
+  useEffect(() => {
+  
+    GetAllTracks().then((track) => {
+      dispatch(setAllTracks(track));
+    })
+    .catch((error) => {
+    setLoadingTracksError(error.message);
+    });
+  }, []);
+
 
    
   useEffect(() => {
