@@ -1,5 +1,9 @@
 import{ styled } from 'styled-components'
 
+export const ContentBlock = styled.ul
+`padding: 18px 0 10px 0;
+`
+
 export const MainCenterblock = styled.div
 `width: auto;
 -webkit-box-flex: 3;
@@ -74,24 +78,6 @@ color: #ffffff;
     line-height: 24px;
   }`
 
-export const CenterblockH2 = styled.h2
-`font-style: normal;
-font-weight: 400;
-font-size: 64px;
-line-height: 72px;
-letter-spacing: -0.8px;
-margin-bottom: 45px;`
-
-export const CenterblockContent = styled.div
-`display: -webkit-box;
-display: -ms-flexbox;
-display: flex;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
--ms-flex-direction: column;
-flex-direction: column;
-width: 1107px;
-`
 
 export const ContentTitlePlaylist = styled.div
 `display: -webkit-box;
@@ -109,49 +95,39 @@ align-items: center;
 justify-content: space-between;
 margin-bottom: 24px;`
 
-export const PlaylistTitleCol01 = styled.div
-`font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 24px;
-letter-spacing: 2px;
-color: #696969;
-text-transform: uppercase;
-width: 447px;`
 
-export const PlaylistTitleCol02 = styled.div
-`font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 24px;
-letter-spacing: 2px;
-color: #696969;
-text-transform: uppercase;
-width: 321px;`
+export const CenterblockH2 = styled.h2`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 72px;
+  letter-spacing: -0.8px;
+  margin-bottom: 45px;
+`;
 
-export const PlaylistTitleCol03 = styled.div
-`font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 24px;
-letter-spacing: 2px;
-color: #696969;
-text-transform: uppercase;
-width: 245px;`
+export const CenterblockContent = styled.div`
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+`;
 
-export const PlaylistTitleCol04 = styled.div
-`font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 24px;
-letter-spacing: 2px;
-color: #696969;
-text-transform: uppercase;
-idth: 60px;
-  text-align: end;`
+export const ContentPlaylist = styled.ul`
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow-y: auto;
+`;
 
-  export const PlaylistTitleSvg = styled.svg
-  `width: 12px;
-  height: 12px;
-  fill: transparent;
-  stroke: #696969;`
+export const PlaylistItem = styled.li`
+  width: 100%;
+  display: block;
+  margin-bottom: 12px;
+`;

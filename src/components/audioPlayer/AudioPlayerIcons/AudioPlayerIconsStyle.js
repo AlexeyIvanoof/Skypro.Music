@@ -25,6 +25,12 @@ const icons = {
     -ms-flex-align: center;
     align-items: center;
   `,
+  like: css`
+  fill : transparent;
+  stroke: #696969;
+  margin-right: 10px;
+`
+
 };
 
 const playerBtnMixin = (alt) => {
@@ -77,6 +83,12 @@ const iconsSvg = {
     fill: transparent;
     stroke: ${(props) => (props.$active ? '#FFFFFF' : '#696969')};
   `,
+
+  like: css`
+  
+  fill:  ${(props) => (props.$active ? '#B672FF' : 'transparent')};
+  
+`
 };
 
 const playerBtnSvgMixin = (alt) => {

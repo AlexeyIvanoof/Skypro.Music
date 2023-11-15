@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-export const ContentPlaylist = styled.ul`
+export const ContentPlaylist = styled.li`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -166,7 +166,9 @@ ${SceletonMixin}
 height: 19px;
 width: 305px;
 `
-export const TrackTime = styled.div``
+export const TrackTime = styled.div`
+display: flex;
+`
 export const TrackTitleText = styled.div``
   
 const animationPointPulse = () => css`

@@ -1,20 +1,23 @@
-import AudioPlayer from '../../components/audioPlayer/AudioPlayer.js'
-import { MyTrackList } from '../../components/MyTrackList'
-import { MainNav } from '../../components/navMenu/NavMenu'
+import AudioPlayer from '../audioPlayer/AudioPlayer.js'
+import { TrackList } from '../trackList/TrackList.js'
+import { Sidebar } from '../sidebar/Sidebar.js'
+import { MainNav } from '../navMenu/NavMenu.jsx'
 import { useState, useEffect } from 'react'
-import * as S from './MyPlayList.styles'
-import { GetAllTracks } from '../../Api'
+import * as S from './TopIndex.styles.js'
+//import { GetAllTracks } from '../../Api.js'
 import {
   allTracksSelector,
   CurrentTrackSelector,
   shuffleAllTracksSelector,
   shuffleSelector,
-} from './../../store/selectors/track.js'
+} from '../../store/selectors/track.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllTracks, setCurrentTrack } from '../../store/slices/track.js'
+import { setAllTracks, setCurrentTrack,setCurrentPage } from '../../store/slices/track.js'
+import  { useGetTracksAllQuery} from "../../serviseQuery/tracks.jsx";
 
-export function MyPlayList() {
+export function Index() {
   const dispatch = useDispatch()
+
   const [isLoaded, setIsLoaded] = useState(false)
   const tracks = useSelector(allTracksSelector)
   const [loadingTracksError, setLoadingTracksError] = useState(null)
@@ -27,7 +30,7 @@ export function MyPlayList() {
     const indexCurrentTrack = arrayTracksAll.indexOf(track)
     dispatch(setCurrentTrack({ track, indexCurrentTrack }))
   }
-  useEffect(() => {
+  /*/useEffect(() => {
     GetAllTracks()
       .then((track) => {
         dispatch(setAllTracks(track))
@@ -35,27 +38,45 @@ export function MyPlayList() {
       .catch((error) => {
         setLoadingTracksError(error.message)
       })
-  }, [])
+  }, [])/*/
 
   useEffect(() => {
     if (!isLoaded) {
-      const timeout = setTimeout(() => {
+      const timer = setTimeout(() => {
         setIsLoaded(true)
       }, 2000)
 
-      return () => clearTimeout(timeout)
+      return () => clearTimeout(timer)
     }
   }, [isLoaded])
+
+  const { data} = useGetTracksAllQuery();
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      dispatch(setAllTracks(data));
+      dispatch(setCurrentPage("index"));
+    }
+  }, [data]);
+
+
   return (
     <S.Wrapper>
       <S.Container>
         <S.Main>
           <MainNav />
 
-          <MyTrackList
+          <TrackList
             isLoaded={isLoaded}
             tracks={tracks}
             handleCurrentTrack={handleCurrentTrack}
+            loadingTracksError={loadingTracksError}
+          />
+
+          <Sidebar
+            isLoaded={isLoaded}
+            loadingTracksError={loadingTracksError}
           />
         </S.Main>
 

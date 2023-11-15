@@ -79,10 +79,17 @@ export default function App() {
     localStorage.getItem("user") || null
   );
 
+  
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("auth")
+    window.location.href = "/Auth";
+  };
+
 // обернули <AppRoutes /> в Provider
   return (
     <div>
-      <UserContext.Provider value={{user}}>
+      <UserContext.Provider value={{ user, handleLogout }}>
       <Provider store={store}>
       <AppRoutes   user={user} setUser={setUser} currentTrack={currentTrack}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack}/>
       </Provider>

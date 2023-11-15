@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Index } from './components/TopIndex'
+import { Index } from "./components/topIndex/TopIndex"
 import { AuthPage } from "./pages/AuthPage/AuthPage";
 import { NotFound } from "./pages/not-found/Not-found";
 import { MyPlayList } from "./pages/My-playlist/MyPlayList";

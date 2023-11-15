@@ -12,16 +12,32 @@ export const tracksSlice = createSlice({
   name: "tracksReducer",
   initialState:{
     allTracks: [],
+    currentPage: "",
     currentTrack: null,
     indexCurrentTrack: null,
     isPlaying: false,
     shuffle: false,
-    shuffleAllTracks: []
+    shuffleAllTracks: [],
+    favouritesTracks: [],
+    currentPlaylist: [],
   },
   reducers: {
     setAllTracks: (state, action) => {
       state.allTracks = action.payload;
     },
+
+    setFavouriteTracksAll: (state, action) => {
+      state.favouritesTracks = action.payload;
+    },
+
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+
+    setCurrentPlaylist: (state, action) => {
+      state.currentPlaylist = action.payload;
+    },
+
 
 //reducer кнопки плей
     setIsPlaying: (state, action) => {
@@ -58,7 +74,17 @@ export const tracksSlice = createSlice({
 }
   });
 // набор событий (actions) которые будут работать в приложении
-  export const {setAllTracks,  setIsPlaying,  setCurrentTrack,  setNextTrack,  setPrevTrack, toggleShuffleTrack} = tracksSlice.actions;
+  export const {  setAllTracks,
+    setCurrentTrack,
+    setNextTrack,
+    setPrevTrack,
+    setIsPlaying,
+    toggleShuffleTrack,
+    setFavouriteTracksAll,
+    setCurrentPage,
+    setCurrentPlaylist,
+  } = tracksSlice.actions;
+   
 
   //reducer взятый по умолчанию из среза
   export default tracksSlice.reducer; 
