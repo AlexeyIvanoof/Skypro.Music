@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import {createGlobalStyle} from 'styled-components'
+import { useState, useEffect } from 'react'
+import { createGlobalStyle } from 'styled-components'
 import { AppRoutes } from './routes'
-import { GetAllTracks } from "./Api";
-import { UserContext } from "./Context/UserContext";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { GetAllTracks } from './Api'
+import { UserContext } from './Context/UserContext'
+import { Provider } from 'react-redux'
+import { store } from './store/store'
 
-const GlobalStyle = createGlobalStyle
-`.App {
+const GlobalStyle = createGlobalStyle`.App {
   text-align: center;
 }
 
@@ -47,56 +46,55 @@ body {
   color: #ffffff;
 }`
 
-
 export default function App() {
-
-  const [tracks, setTracks] = useState([]);
-  const [currentTrack, setCurrentTrack] = useState (null);
+  const [tracks, setTracks] = useState([])
+  const [currentTrack, setCurrentTrack] = useState(null)
   const [tracksError, setTracksError] = useState(null)
-  const [loading, setloading] = useState (false);
-  
+  const [loading, setloading] = useState(false)
 
   useEffect(() => {
-    async function getAllTracks (){
-   try {
-     setloading (true);//состояние загрузки началось
-     setTracksError(null);
-     await GetAllTracks().then((tracks) => {
-     console.log(tracks);//проверка что получаем из апи
-     setTracks(tracks);
-   })//получение из апи треков
-   } catch(error) {
-     setTracksError(error.message)//если ошибка
-   } finally{
-     setloading(false)//состояние загрузки закончилось после получения данных из апи
-   }
-   
-     }
-     getAllTracks ()
-   }, [])
+    async function getAllTracks() {
+      try {
+        setloading(true) //состояние загрузки началось
+        setTracksError(null)
+        await GetAllTracks().then((tracks) => {
+          console.log(tracks) //проверка что получаем из апи
+          setTracks(tracks)
+        }) //получение из апи треков
+      } catch (error) {
+        setTracksError(error.message) //если ошибка
+      } finally {
+        setloading(false) //состояние загрузки закончилось после получения данных из апи
+      }
+    }
+    getAllTracks()
+  }, [])
 
-   const [user, setUser] = useState(
-    localStorage.getItem("user") || null
-  );
+  const [user, setUser] = useState(localStorage.getItem('user') || null)
 
-  
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("auth")
-    window.location.href = "/Auth";
-  };
+    localStorage.removeItem('user')
+    localStorage.removeItem('auth')
+    window.location.href = '/'
+  }
 
-// обернули <AppRoutes /> в Provider
+  // обернули <AppRoutes /> в Provider
   return (
     <div>
       <UserContext.Provider value={{ user, handleLogout }}>
-      <Provider store={store}>
-      <AppRoutes   user={user} setUser={setUser} currentTrack={currentTrack}  tracks = {tracks} setTracks = {setTracks}  tracksError={tracksError} setCurrentTrack = {setCurrentTrack}/>
-      </Provider>
+        <Provider store={store}>
+          <AppRoutes
+            user={user}
+            setUser={setUser}
+            currentTrack={currentTrack}
+            tracks={tracks}
+            setTracks={setTracks}
+            tracksError={tracksError}
+            setCurrentTrack={setCurrentTrack}
+          />
+        </Provider>
       </UserContext.Provider>
       <GlobalStyle />
     </div>
-    
   )
 }
-

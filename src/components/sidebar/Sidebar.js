@@ -11,7 +11,7 @@ export function Sidebar({ isLoaded, loadingTracksError }) {
 
   const handleLogOut = () => {
     localStorage.clear()
-    navigate('/Auth', { replace: true })
+    navigate('/', { replace: true })
   }
 
   const fullCategory = categoryArr.map((category) => (
