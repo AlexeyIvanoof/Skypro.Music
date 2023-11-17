@@ -1,7 +1,5 @@
-import { Filter } from '../trackFilter/TrackFilters.jsx'
 import * as S from './TrackList.styles.js'
 import { Track } from '../track/Track.js'
-import { TrackListTitle } from '../trackListTitle/TrackListTitle.jsx';
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {   shuffleSelector,
@@ -35,10 +33,10 @@ export function TrackList({
   
     const handleCurrentTrack = (track) => {
    
-      if (currentPage === "index") {
+      if (currentPage === "Index") {
         dispatch(setCurrentPlaylist(allTracks));
       }
-      if (currentPage === "myplaylist") {
+      if (currentPage === "Favorites") {
         dispatch(setCurrentPlaylist(favouritesTracks));
       }
     
@@ -54,25 +52,14 @@ export function TrackList({
   
 
   return (
-    <S.MainCenterblock>
-      <S.CenterblockSearch>
-        <S.SearchSvg>
-          <use xlinkHref="img/icon/sprite.svg#icon-search"></use>
-        </S.SearchSvg>
-        <S.SearchText type="search" placeholder="Поиск" name="search" />
-      </S.CenterblockSearch>
-      <S.CenterblockH2>Треки</S.CenterblockH2>
-
-      <Filter />
-
+   <>
+     
       <S.CenterblockContent>
-      
-      <TrackListTitle />
           {loadingTracksError ? (
             <div>Не удалось загрузить плейлист, попробуйте позже</div>
           ) : (
             <S.ContentPlaylist>
-              {isLoaded &&
+              {!isLoaded &&
                 new Array(20)
                   .fill()
                   .map(() => (
@@ -97,6 +84,6 @@ export function TrackList({
             </S.ContentPlaylist>
           )}
       </S.CenterblockContent>
-    </S.MainCenterblock>
+    </>
   )
 }

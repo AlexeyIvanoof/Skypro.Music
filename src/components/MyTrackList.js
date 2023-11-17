@@ -1,50 +1,68 @@
-import { Track } from './track/Track.js'
+import { TrackList } from "./trackList/TrackList.js"
 import * as S from './trackList/TrackList.styles.js'
 import * as C from './sidebar/Sidebar.styles.js'
-import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { CurrentTrackSelector } from '../store/selectors/track.js'
+import { CenterblockSearch } from "./centerblockSearch/CenterblockSearch.js"
+import { useDispatch, useSelector } from "react-redux";
+import { CurrentTrackSelector, favouritesTracksSelector } from '../store/selectors/track.js'
 import { TrackListTitle } from "./trackListTitle/TrackListTitle.jsx"
+import { useGetFavouriteTracksAllQuery} from "../serviseQuery/tracks";
+import { setFavouriteTracksAll, setCurrentPage,} from "../store/slices/track";
+import { useEffect } from "react";
+import { useContext } from 'react'
+import { UserContext } from "../Context/UserContext.js"
+import { useNavigate } from 'react-router-dom'
+
 
 export function MyTrackList({
-  isLoaded,
-  tracks,
   loadingTracksError,
   handleCurrentTrack,
   setCurrentTrack,
 }) {
+  const navigate = useNavigate()
+  const { user } = useContext(UserContext)
+  const dispatch = useDispatch();
+  const { data, error, isLoaded } = useGetFavouriteTracksAllQuery();
+  const favouritesTracks = useSelector(favouritesTracksSelector);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setFavouriteTracksAll(data));
+      dispatch(setCurrentPage("Favorites"));
+    }
+  }, [data]);
+
+  const handleLogOut = () => {
+    localStorage.clear()
+    navigate('/Auth', { replace: true })
+  }
+
   const currentTrack = useSelector(CurrentTrackSelector)
   return (
     <S.MainCenterblock>
-      <S.CenterblockSearch>
-        <S.SearchSvg>
-          <use xlinkHref="img/icon/sprite.svg#icon-search"></use>
-        </S.SearchSvg>
-        <S.SearchText type="search" placeholder="Поиск" name="search" />
-        <C.SidebarPesonal>
-          <C.SidebarPesonalName>Aleksey.Ivanov</C.SidebarPesonalName>
-          <NavLink to="/">
-            <C.SidebarIcon>
-              <svg alt="logout">
-                <use xlinkHref="img/icon/sprite.svg#logout"></use>
-              </svg>
-            </C.SidebarIcon>
-          </NavLink>
-        </C.SidebarPesonal>
-      </S.CenterblockSearch>
-      <S.CenterblockH2>Мои треки</S.CenterblockH2>
+<C.SidebarPesonal>
+        <C.SidebarPesonalName>{user}</C.SidebarPesonalName>
 
+        <C.SidebarIcon>
+          <svg onClick={handleLogOut} alt="logout">
+            <use xlinkHref="img/icon/sprite.svg#logout"></use>
+          </svg>
+        </C.SidebarIcon>
+      </C.SidebarPesonal>
+     <CenterblockSearch props = "Мои треки"/>
+     
       <S.CenterblockContent>
 
       <TrackListTitle />
 
-        <Track
+        <TrackList
           isLoaded={isLoaded}
-          tracks={tracks}
           handleCurrentTrack={handleCurrentTrack}
           loadingTracksError={loadingTracksError}
           setCurrentTrack={setCurrentTrack}
           currentTrack={currentTrack}
+          tracks={favouritesTracks}
+          error={error}
+          isFavorites
         />
       </S.CenterblockContent>
     </S.MainCenterblock>

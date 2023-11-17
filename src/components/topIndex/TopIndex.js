@@ -1,10 +1,13 @@
 import AudioPlayer from '../audioPlayer/AudioPlayer.js'
 import { TrackList } from '../trackList/TrackList.js'
+import { Filter } from '../trackFilter/TrackFilters.jsx'
+import { CenterblockSearch } from '../centerblockSearch/CenterblockSearch.js'
 import { Sidebar } from '../sidebar/Sidebar.js'
 import { MainNav } from '../navMenu/NavMenu.jsx'
 import { useState, useEffect } from 'react'
 import * as S from './TopIndex.styles.js'
-//import { GetAllTracks } from '../../Api.js'
+import { TrackListTitle } from '../trackListTitle/TrackListTitle.jsx'
+
 import {
   allTracksSelector,
   CurrentTrackSelector,
@@ -56,7 +59,7 @@ export function Index() {
     if (data) {
       console.log(data);
       dispatch(setAllTracks(data));
-      dispatch(setCurrentPage("index"));
+      dispatch(setCurrentPage("Index"));
     }
   }, [data]);
 
@@ -66,14 +69,17 @@ export function Index() {
       <S.Container>
         <S.Main>
           <MainNav />
-
+          <S.MainCenterblock>
+          < CenterblockSearch props = "Треки"/>
+           <Filter />
+           <TrackListTitle />
           <TrackList
             isLoaded={isLoaded}
             tracks={tracks}
             handleCurrentTrack={handleCurrentTrack}
             loadingTracksError={loadingTracksError}
           />
-
+          </S.MainCenterblock>
           <Sidebar
             isLoaded={isLoaded}
             loadingTracksError={loadingTracksError}
