@@ -59,7 +59,7 @@ export function TrackList({
             <div>Не удалось загрузить плейлист, попробуйте позже</div>
           ) : (
             <S.ContentPlaylist>
-              {!isLoaded &&
+              {isLoaded &&
                 new Array(20)
                   .fill()
                   .map(() => (

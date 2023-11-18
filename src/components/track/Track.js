@@ -53,7 +53,7 @@ export function Track({
             <S.PlaylistItem>
               <S.PlaylistTrack>
                 <S.TrackTitle>
-                  {isLoaded ? (
+                  {!isLoaded ? (
                     <S.TrackTitleImage>
                       {currentTrack && currentTrack.id === track.id ? (
                         <S.PointPlaying $playing={isPlaying} />
@@ -67,7 +67,7 @@ export function Track({
                     <S.SkeletonTitleImage> </S.SkeletonTitleImage>
                   )}
 
-                  {isLoaded ? (
+                  {!isLoaded ? (
                     <S.TrackTitleText>
                       <S.TrackTitleLink > 
                         {track.name}
@@ -79,7 +79,7 @@ export function Track({
                   )}
                 </S.TrackTitle>
 
-                {isLoaded ? (
+                {!isLoaded ? (
                   <S.TrackAuthor>
                     <S.TrackAuthorLink>{track.author}</S.TrackAuthorLink>
                   </S.TrackAuthor>
@@ -87,7 +87,7 @@ export function Track({
                   <S.SkeletonAuthor></S.SkeletonAuthor>
                 )}
 
-                {isLoaded ? (
+                {!isLoaded ? (
                   <>
                     <S.TrackAlbum>
                       <S.TrackAlbumLink>{track.album}</S.TrackAlbumLink>
