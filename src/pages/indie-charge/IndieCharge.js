@@ -8,17 +8,17 @@ import * as S from './IndieCharge.styles'
 
 export function TrackIndieGarge() {
   
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
-    if (!isLoaded) {
+    if (!isLoading) {
       const timeout = setTimeout(() => {
-        setIsLoaded(true);
+        setisLoading(true);
       }, 2000);
 
       return () => clearTimeout(timeout); 
     }
-  }, [isLoaded]);
+  }, [isLoading]);
     return (
 
 <S.Wrapper>
@@ -27,11 +27,11 @@ export function TrackIndieGarge() {
 
   <MainNav />
 
-  <IndieCharge isLoaded={isLoaded} />
+  <IndieCharge isLoading={isLoading} />
    
   </S.Main>
 
- < AudioPlayer isLoaded={isLoaded}/> 
+ < AudioPlayer isLoading={isLoading}/> 
 
   <S.Footer></S.Footer>
 </S.Container>

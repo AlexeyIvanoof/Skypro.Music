@@ -15,13 +15,17 @@ import {
   shuffleSelector,
 } from '../../store/selectors/track.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllTracks, setCurrentTrack,setCurrentPage } from '../../store/slices/track.js'
-import  { useGetTracksAllQuery} from "../../serviseQuery/tracks.jsx";
+import {
+  setAllTracks,
+  setCurrentTrack,
+  setCurrentPage,
+} from '../../store/slices/track.js'
+import { useGetTracksAllQuery } from '../../serviseQuery/tracks.jsx'
 
 export function Index() {
   const dispatch = useDispatch()
 
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoading, setisLoading] = useState(false)
   const tracks = useSelector(allTracksSelector)
   const [loadingTracksError, setLoadingTracksError] = useState(null)
   const currentTrack = useSelector(CurrentTrackSelector)
@@ -44,25 +48,24 @@ export function Index() {
   }, [])/*/
 
   useEffect(() => {
-    if (!isLoaded) {
+    if (!isLoading) {
       const timer = setTimeout(() => {
-        setIsLoaded(true)
+        setisLoading(true)
       }, 2000)
 
       return () => clearTimeout(timer)
     }
-  }, [isLoaded])
+  }, [isLoading])
 
-  const { data} = useGetTracksAllQuery();
+  const { data } = useGetTracksAllQuery()
 
   useEffect(() => {
     if (data) {
-      console.log(data);
-      dispatch(setAllTracks(data));
-      dispatch(setCurrentPage("Index"));
+      console.log(data)
+      dispatch(setAllTracks(data))
+      dispatch(setCurrentPage('Index'))
     }
-  }, [data]);
-
+  }, [data])
 
   return (
     <S.Wrapper>
@@ -70,24 +73,24 @@ export function Index() {
         <S.Main>
           <MainNav />
           <S.MainCenterblock>
-          < CenterblockSearch props = "Треки"/>
-           <Filter />
-           <TrackListTitle />
-          <TrackList
-            isLoaded={isLoaded}
-            tracks={tracks}
-            handleCurrentTrack={handleCurrentTrack}
-            loadingTracksError={loadingTracksError}
-          />
+            <CenterblockSearch props="Треки" />
+            <Filter />
+            <TrackListTitle />
+            <TrackList
+              isLoading={isLoading}
+              tracks={tracks}
+              handleCurrentTrack={handleCurrentTrack}
+              loadingTracksError={loadingTracksError}
+            />
           </S.MainCenterblock>
           <Sidebar
-            isLoaded={isLoaded}
+            isLoading={isLoading}
             loadingTracksError={loadingTracksError}
           />
         </S.Main>
 
         {currentTrack && (
-          <AudioPlayer isLoaded={isLoaded} currentTrack={currentTrack} />
+          <AudioPlayer isLoading={isLoading} currentTrack={currentTrack} />
         )}
 
         <S.Footer></S.Footer>

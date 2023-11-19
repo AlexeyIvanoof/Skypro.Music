@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const AUTH_INFO = "auth";
+const AUTH_INFO = "/";
 
 function getAuthFromLocalStorage() {
   try {

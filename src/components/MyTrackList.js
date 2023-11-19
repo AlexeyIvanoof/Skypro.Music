@@ -23,7 +23,7 @@ export function MyTrackList({
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const dispatch = useDispatch()
-  const { data, error, isLoaded } = useGetFavouriteTracksAllQuery()
+  const { data, error, isLoading } = useGetFavouriteTracksAllQuery()
   const favouritesTracks = useSelector(favouritesTracksSelector)
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function MyTrackList({
         <TrackListTitle />
 
         <TrackList
-          isLoaded={isLoaded}
+          isLoading={isLoading}
           handleCurrentTrack={handleCurrentTrack}
           loadingTracksError={loadingTracksError}
           setCurrentTrack={setCurrentTrack}

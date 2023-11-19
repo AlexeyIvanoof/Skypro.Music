@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../Context/UserContext.js'
 
-export function Sidebar({ isLoaded, loadingTracksError }) {
+export function Sidebar({ isLoading, loadingTracksError }) {
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
 
@@ -16,7 +16,7 @@ export function Sidebar({ isLoaded, loadingTracksError }) {
 
   const fullCategory = categoryArr.map((category) => (
     <S.SidebarItem key={category.id}>
-      {isLoaded && !loadingTracksError ? (
+      {!isLoading && !loadingTracksError ? (
         <NavLink to={`/category/${category.id}`}>
           <S.SidebarImg src={category.img} alt={category.alt} />
         </NavLink>

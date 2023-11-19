@@ -1,40 +1,34 @@
-import { AudioPlayer } from "../../components/AudioPlayer"
-import { TrackDayList } from "../../components/TrackOfDay"
-import { MainNav } from "../../components/navMenu/NavMenu"
+import { AudioPlayer } from '../../components/AudioPlayer'
+import { TrackDayList } from '../../components/TrackOfDay'
+import { MainNav } from '../../components/navMenu/NavMenu'
 import { useState, useEffect } from 'react'
 import * as S from './PlaylistOfTheDay.styles'
 
-
-
 export function PlayListOfDay() {
-  
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setisLoading] = useState(false)
 
   useEffect(() => {
-    if (!isLoaded) {
+    if (!isLoading) {
       const timeout = setTimeout(() => {
-        setIsLoaded(true);
-      }, 2000);
+        setisLoading(true)
+      }, 2000)
 
-      return () => clearTimeout(timeout); 
+      return () => clearTimeout(timeout)
     }
-  }, [isLoaded]);
-    return (
+  }, [isLoading])
+  return (
+    <S.Wrapper>
+      <S.Container>
+        <S.Main>
+          <MainNav />
 
-<S.Wrapper>
-<S.Container>
-  <S.Main>
+          <TrackDayList isLoading={isLoading} />
+        </S.Main>
 
-  <MainNav />
+        <AudioPlayer isLoading={isLoading} />
 
-  <TrackDayList isLoaded={isLoaded} />
-   
-  </S.Main>
-
- < AudioPlayer isLoaded={isLoaded}/> 
-
-  <S.Footer></S.Footer>
-</S.Container>
-</S.Wrapper>
-    )
-};
+        <S.Footer></S.Footer>
+      </S.Container>
+    </S.Wrapper>
+  )
+}

@@ -74,7 +74,7 @@ export default function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('user')
-    localStorage.removeItem('auth')
+    localStorage.removeItem('/')
     window.location.href = '/'
   }
 
