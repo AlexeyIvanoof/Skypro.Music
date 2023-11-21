@@ -13,12 +13,12 @@ export default function ShowMenu() {
     <S.NavMenu>
       <S.MenuList>
         <S.MenuItem>
-          <NavLink to="/index">
+          <NavLink to="index">
             <S.MenuLink>Главное</S.MenuLink>
           </NavLink>
         </S.MenuItem>
         <S.MenuItem>
-          <NavLink to="/myplaylist">
+          <NavLink to="myplaylist">
             <S.MenuLink>Мой плейлист</S.MenuLink>
           </NavLink>
         </S.MenuItem>

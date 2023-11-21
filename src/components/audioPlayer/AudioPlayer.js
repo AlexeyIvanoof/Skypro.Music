@@ -1,5 +1,6 @@
 import React from 'react'
 import * as S from './AudioPlayer.styles.js'
+import {SkeletonTrackPlayNow} from '../skeleton/SkeletonAudioPlayer'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { PlayerTrackPlay } from '../PlayerTrackPlay/PlayerTrackPlay.jsx'
@@ -20,7 +21,7 @@ import {
   shuffleSelector,
 } from '../../store/selectors/track.js'
 
-function AudioPlayer({ currentTrack }) {
+function AudioPlayer({ currentTrack, isLoading }) {
   const tracks = useSelector(allTracksSelector)
   const dispatch = useDispatch()
   const isPlaying = useSelector(isPlayingSelector)
@@ -134,7 +135,11 @@ function AudioPlayer({ currentTrack }) {
                 }}
               />
             </S.PlayerControls>
+            {!isLoading ? (
             <PlayerTrackPlay currentTrack={currentTrack} />
+            ):(
+             <SkeletonTrackPlayNow />
+            )}
           </S.BarPlayerPlayer>
           <VolumeBlock audioRef={audioRef} />
         </S.BarPlayerBlock>

@@ -2,7 +2,7 @@
 import * as S from './SkeletonAudioPlayer.styles.js'
 
 
-export default function SkeletonTrackPlayNow() {
+export  function SkeletonTrackPlayNow() {
     return (
       <S.TrackPlayContain>
         <S.SkeletonPlayImage></S.SkeletonPlayImage>

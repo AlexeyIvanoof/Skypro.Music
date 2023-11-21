@@ -9,3 +9,4 @@ export const favouritesTracksSelector = (store) => store.tracks.favouritesTracks
 export const currentPlaylistSelector = (store) => store.tracks.currentPlaylist;
 export const currentPageSelector = (store) => store.tracks.currentPage;
 export const tokenSelector = (store) => store.auth.accessToken;
+export const favoritTrackSelector = (store)=> store.tracks.favoritTrack;

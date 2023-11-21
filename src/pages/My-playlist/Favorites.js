@@ -3,30 +3,23 @@ import { MyTrackList } from '../../components/MyTrackList.js'
 import { MainNav } from '../../components/navMenu/NavMenu.jsx'
 import { useState, useEffect } from 'react'
 import * as S from './MyPlayList.styles.js'
-import { CurrentTrackSelector, favouritesTracksSelector } from "../../store/selectors/track.js"
+import { favouritesTracksSelector, favoritTrackSelector } from "../../store/selectors/track.js"
 import { useSelector } from "react-redux";
 
 
 export function Favorites( handleCurrentTrack, error) {
   const favouritesTracks = useSelector(favouritesTracksSelector);
-  const [isLoading, setIsLoading] = useState(false)
-  const currentTrack = useSelector(CurrentTrackSelector)
+  const [isLoading, setisLoading] = useState(true)
+  const favoritTrack = useSelector(favoritTrackSelector)
+  console.log(favoritTrack)
   
-
   useEffect(() => {
-    if (!isLoading) {
-      const timeout = setTimeout(() => {
-        setIsLoading(true)
-      }, 2000)
-
-      return () => clearTimeout(timeout)
-    }
-  }, [isLoading])
+    const timer = setTimeout(() => {
+      setisLoading(false)
+    }, 2000)
+    return () => clearTimeout(timer)
+  },[])
   return (
-    <S.Wrapper>
-      <S.Container>
-        <S.Main>
-          <MainNav />
 
           <MyTrackList
             isLoading={isLoading}
@@ -34,14 +27,6 @@ export function Favorites( handleCurrentTrack, error) {
             handleCurrentTrack={handleCurrentTrack}
             error={error}
           />
-        </S.Main>
-
-        {currentTrack && (
-          <AudioPlayer isLoading={isLoading} currentTrack={currentTrack} />
-        )}
-
-        <S.Footer></S.Footer>
-      </S.Container>
-    </S.Wrapper>
+      
   )
 }

@@ -23,19 +23,18 @@ export async function RegistrationApi(email, password) {
     headers: {
       "content-type": "application/json",
     },
-  }).then((response) => {
+  }).then(async (response) => {
     if (response.status === 400) {
-      return response.json().then((errorResponse) => {
-        if (errorResponse.username) {
-          throw new Error(errorResponse.username);
-        }
-        if (errorResponse.email) {
-          throw new Error(errorResponse.email);
-        }
-        if (errorResponse.password) {
-          throw new Error(errorResponse.password);
-        }
-      });
+      const errorResponse = await response.json();
+      if (errorResponse.username) {
+        throw new Error(errorResponse.username);
+      }
+      if (errorResponse.email) {
+        throw new Error(errorResponse.email);
+      }
+      if (errorResponse.password) {
+        throw new Error(errorResponse.password);
+      }
     }
     if (response.status === 500) {
       throw new Error("Сервер сломался");
@@ -54,23 +53,21 @@ export async function LoginApi(email, password) {
     headers: {
       "content-type": "application/json",
     },
-  }).then((response) => {
+  }).then(async (response) => {
     console.log("response", response);
     if (response.status === 400) {
-      return response.json().then((errorResponse) => {
-        if (errorResponse.email) {
-          throw new Error(errorResponse.email);
-        }
-        if (errorResponse.password) {
-          throw new Error(errorResponse.password);
-        }
-        throw new Error("Произошла неизвестная ошибка.");
-      });
+      const errorResponse = await response.json();
+      if (errorResponse.email) {
+        throw new Error(errorResponse.email);
+      }
+      if (errorResponse.password) {
+        throw new Error(errorResponse.password);
+      }
+      throw new Error("Произошла неизвестная ошибка.");
     }
     if (response.status === 401) {
-      return response.json().then((errorResponse) => {
-        throw new Error(errorResponse.detail);
-      });
+      const errorResponse_1 = await response.json();
+      throw new Error(errorResponse_1.detail);
       
     }
     return response.json();

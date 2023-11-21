@@ -5,6 +5,7 @@ import { CenterblockSearch } from './centerblockSearch/CenterblockSearch.js'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   CurrentTrackSelector,
+  favoritTrackSelector,
   favouritesTracksSelector,
 } from '../store/selectors/track.js'
 import { TrackListTitle } from './trackListTitle/TrackListTitle.jsx'
@@ -25,6 +26,8 @@ export function MyTrackList({
   const dispatch = useDispatch()
   const { data, error, isLoading } = useGetFavouriteTracksAllQuery()
   const favouritesTracks = useSelector(favouritesTracksSelector)
+  //const currentTrack = useSelector(CurrentTrackSelector)
+  const favoritTrack = useSelector(favoritTrackSelector)
 
   useEffect(() => {
     if (data) {
@@ -32,40 +35,28 @@ export function MyTrackList({
       dispatch(setCurrentPage('Favorites'))
     }
   }, [data])
-
+   console.log(data)
   const handleLogOut = () => {
     localStorage.clear()
     navigate('/', { replace: true })
   }
 
-  const currentTrack = useSelector(CurrentTrackSelector)
   return (
-    <S.MainCenterblock>
-      <C.SidebarPesonal>
-        <C.SidebarPesonalName>{user}</C.SidebarPesonalName>
-
-        <C.SidebarIcon>
-          <svg onClick={handleLogOut} alt="logout">
-            <use xlinkHref="img/icon/sprite.svg#logout"></use>
-          </svg>
-        </C.SidebarIcon>
-      </C.SidebarPesonal>
+   <>
+      
       <CenterblockSearch props="Мои треки" />
-
       <S.CenterblockContent>
         <TrackListTitle />
-
         <TrackList
           isLoading={isLoading}
           handleCurrentTrack={handleCurrentTrack}
           loadingTracksError={loadingTracksError}
           setCurrentTrack={setCurrentTrack}
-          currentTrack={currentTrack}
+          currentTrack = {favoritTrack}
           tracks={favouritesTracks}
           error={error}
-          isFavorites
         />
       </S.CenterblockContent>
-    </S.MainCenterblock>
+      </>
   )
 }

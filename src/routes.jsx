@@ -6,6 +6,7 @@ import { Favorites } from './pages/My-playlist/Favorites'
 import { ProtectedRoute } from './components/protected-route'
 import { useState } from 'react'
 import { Category } from './pages/category/Category'
+import { Layout } from './components/Layout'
 
 export const AppRoutes = ({
   tracks,
@@ -37,8 +38,21 @@ export const AppRoutes = ({
       />
 
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
+        
+      <Route 
+        path="/Layout" 
+        element={
+         <Layout
+         setUser={setUser}
+              tracks={tracks}
+              tracksError={tracksError}
+              currentTrack={currentTrack}
+              setCurrentTrack={setCurrentTrack}
+         ></Layout>
+         }
+      >
         <Route
-          path="/index"
+          path="index"
           element={
             <Index
               setUser={setUser}
@@ -51,7 +65,7 @@ export const AppRoutes = ({
         />
 
         <Route
-          path="/myplaylist"
+          path="myplaylist"
           element={
             <Favorites
               tracks={tracks}
@@ -62,7 +76,7 @@ export const AppRoutes = ({
           }
         />
         <Route
-          path="/category/:id"
+          path="category/:id"
           element={
             <Category
               tracks={tracks}
@@ -72,6 +86,7 @@ export const AppRoutes = ({
             ></Category>
           }
         />
+         </Route>
       </Route>
 
       <Route path="*" element={<NotFound />} />

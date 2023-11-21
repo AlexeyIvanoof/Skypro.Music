@@ -14,6 +14,7 @@ export const tracksSlice = createSlice({
     allTracks: [],
     currentPage: "",
     currentTrack: null,
+    favoritTrack: null,
     indexCurrentTrack: null,
     isPlaying: false,
     shuffle: false,
@@ -47,7 +48,8 @@ export const tracksSlice = createSlice({
 //reducer текущий трек
       setCurrentTrack: (state, action) => {
         const { track, indexCurrentTrack } = action.payload;
-      state.currentTrack = track;
+      state.currentTrack = track ;
+      state.favoritTrack = track;
       state.indexCurrentTrack = indexCurrentTrack;
     },
 
@@ -55,6 +57,7 @@ export const tracksSlice = createSlice({
       setNextTrack: (state, action) => {
         const {indexNextTrack, nextTrack} = action.payload;
         state.currentTrack = nextTrack;
+        state.favoritTrack = nextTrack; 
         state.indexCurrentTrack = indexNextTrack;
       },
 
@@ -62,6 +65,7 @@ export const tracksSlice = createSlice({
       setPrevTrack: (state, action) => {
         const {indexPrevTrack, prevTrack} = action.payload;
         state.currentTrack = prevTrack;
+        state.favoritTrack = prevTrack; 
         state.indexCurrentTrack =  indexPrevTrack;
       },
       

@@ -1,7 +1,7 @@
 import React from "react";
 import *as S  from "./PlayerTrackPlayStyle";
 
-export function PlayerTrackPlay ({ currentTrack}) {
+export function PlayerTrackPlay ({currentTrack}) {
     return (
         <S.PlayerTrackPlay>
         <S.TrackPlayContain>

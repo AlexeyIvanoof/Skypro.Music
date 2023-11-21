@@ -1,16 +1,11 @@
-import AudioPlayer from '../audioPlayer/AudioPlayer.js'
 import { TrackList } from '../trackList/TrackList.js'
 import { Filter } from '../trackFilter/TrackFilters.jsx'
 import { CenterblockSearch } from '../centerblockSearch/CenterblockSearch.js'
-import { Sidebar } from '../sidebar/Sidebar.js'
-import { MainNav } from '../navMenu/NavMenu.jsx'
 import { useState, useEffect } from 'react'
-import * as S from './TopIndex.styles.js'
 import { TrackListTitle } from '../trackListTitle/TrackListTitle.jsx'
 
 import {
   allTracksSelector,
-  CurrentTrackSelector,
   shuffleAllTracksSelector,
   shuffleSelector,
 } from '../../store/selectors/track.js'
@@ -25,10 +20,9 @@ import { useGetTracksAllQuery } from '../../serviseQuery/tracks.jsx'
 export function Index() {
   const dispatch = useDispatch()
 
-  const [isLoading, setisLoading] = useState(false)
+  const [isLoading, setisLoading] = useState(true)
   const tracks = useSelector(allTracksSelector)
   const [loadingTracksError, setLoadingTracksError] = useState(null)
-  const currentTrack = useSelector(CurrentTrackSelector)
   const shuffle = useSelector(shuffleSelector)
   const shuffleAllTracks = useSelector(shuffleAllTracksSelector)
   const arrayTracksAll = shuffle ? shuffleAllTracks : tracks
@@ -37,25 +31,14 @@ export function Index() {
     const indexCurrentTrack = arrayTracksAll.indexOf(track)
     dispatch(setCurrentTrack({ track, indexCurrentTrack }))
   }
-  /*/useEffect(() => {
-    GetAllTracks()
-      .then((track) => {
-        dispatch(setAllTracks(track))
-      })
-      .catch((error) => {
-        setLoadingTracksError(error.message)
-      })
-  }, [])/*/
-
+ 
   useEffect(() => {
-    if (!isLoading) {
       const timer = setTimeout(() => {
-        setisLoading(true)
+        setisLoading(false)
       }, 2000)
-
       return () => clearTimeout(timer)
-    }
-  }, [isLoading])
+    },[])
+ 
 
   const { data } = useGetTracksAllQuery()
 
@@ -68,11 +51,7 @@ export function Index() {
   }, [data])
 
   return (
-    <S.Wrapper>
-      <S.Container>
-        <S.Main>
-          <MainNav />
-          <S.MainCenterblock>
+   <> 
             <CenterblockSearch props="Треки" />
             <Filter />
             <TrackListTitle />
@@ -82,19 +61,8 @@ export function Index() {
               handleCurrentTrack={handleCurrentTrack}
               loadingTracksError={loadingTracksError}
             />
-          </S.MainCenterblock>
-          <Sidebar
-            isLoading={isLoading}
-            loadingTracksError={loadingTracksError}
-          />
-        </S.Main>
+         
 
-        {currentTrack && (
-          <AudioPlayer isLoading={isLoading} currentTrack={currentTrack} />
-        )}
-
-        <S.Footer></S.Footer>
-      </S.Container>
-    </S.Wrapper>
+</> 
   )
 }
