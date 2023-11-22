@@ -53,23 +53,29 @@ export async function LoginApi(email, password) {
     headers: {
       "content-type": "application/json",
     },
-  }).then(async (response) => {
-    console.log("response", response);
-    if (response.status === 400) {
-      const errorResponse = await response.json();
-      if (errorResponse.email) {
-        throw new Error(errorResponse.email);
+  })
+    .catch((error) => {
+      if (error.message === "Failed to fetch") {
+        throw new Error("Нет подключения к интернету");
       }
-      if (errorResponse.password) {
-        throw new Error(errorResponse.password);
+    })
+    .then((response) => {
+      if (response.status === 400) {
+        return response.json().then((errorResponse) => {
+          if (errorResponse.email) {
+            throw new Error(errorResponse.email);
+          }
+          if (errorResponse.password) {
+            throw new Error(errorResponse.password);
+          }
+          throw new Error("Произошла неизвестная ошибка.");
+        });
       }
-      throw new Error("Произошла неизвестная ошибка.");
-    }
-    if (response.status === 401) {
-      const errorResponse_1 = await response.json();
-      throw new Error(errorResponse_1.detail);
-      
-    }
-    return response.json();
-  });
+      if (response.status === 401) {
+        return response.json().then((errorResponse) => {
+          throw new Error(errorResponse.detail);
+        });
+      }
+      return response.json();
+    });
 }

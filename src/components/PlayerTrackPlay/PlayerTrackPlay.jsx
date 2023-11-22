@@ -1,13 +1,47 @@
 import React from "react";
 import *as S  from "./PlayerTrackPlayStyle";
+import { AudioPlayerIcons } from "../audioPlayer/AudioPlayerIcons/AudioPlayerIcons.jsx";
+import {
+  useSetLikeMutation,
+  useSetDislikeMutation,
+} from "../../serviseQuery/tracks.jsx";
+import { useState, useEffect } from 'react'
 
 export function PlayerTrackPlay ({currentTrack}) {
+
+  const [setLike] = useSetLikeMutation();
+  const [setDislike] = useSetDislikeMutation();
+  const auth = JSON.parse(localStorage.getItem("user"));
+  const isUserLike = Boolean(
+    currentTrack?.stared_user?.find((user) => user.id === auth.id)
+  );
+  console.log(auth.id);
+  const [isLiked, setIsLiked] = useState(isUserLike);
+  useEffect(() => {
+    if (currentTrack?.stared_user) {
+      setIsLiked(isUserLike);
+    } else {
+      setIsLiked(true);
+    }
+  }, [isUserLike, currentTrack?.stared_user]);
+  const handleLike = async (id) => {
+    setIsLiked(true);
+    await setLike({ id }).unwrap();
+  };
+  const handleDislike = async (id) => {
+    setIsLiked(false);
+    await setDislike({ id }).unwrap();
+  };
+  const toggleLikeDislike = (id) =>
+    isLiked ? handleDislike(id) : handleLike(id);
+
+
     return (
         <S.PlayerTrackPlay>
         <S.TrackPlayContain>
         <S.TrackPlayImage>
            <S.TrackPlaySvg>
-              <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+              <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
               </S.TrackPlaySvg>
             </S.TrackPlayImage>
           <S.TrackPlayAuthor>
@@ -23,13 +57,17 @@ export function PlayerTrackPlay ({currentTrack}) {
        </S.TrackPlayContain>
         <S.TrackPlayLikeDis>
          <S.TrackPlayLike>
-           <S.TrackPlayLikeSvg>
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-              </S.TrackPlayLikeSvg>
+         <AudioPlayerIcons
+                    alt="like"
+                    click={() => {
+                      toggleLikeDislike(currentTrack?.id);
+                    }}
+                    isActive={isLiked}
+                  />
             </S.TrackPlayLike>
           <S.TrackPlayDislike>
             <S.TrackPlayDislikeSvg>
-              <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
+             
               </S.TrackPlayDislikeSvg>
             </S.TrackPlayDislike>
           </S.TrackPlayLikeDis>

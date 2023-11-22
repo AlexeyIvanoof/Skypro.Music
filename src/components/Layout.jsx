@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import * as S from "../components/topIndex/TopIndex.styles";
 import { CurrentTrackSelector } from "../store/selectors/track";
 import  {MainNav}  from "./navMenu/NavMenu";
-import { Sidebar } from "./sidebar/Sidebar";
+//import { Sidebar } from "./sidebar/Sidebar";
 import AudioPlayer from "./audioPlayer/AudioPlayer"
 
 
@@ -15,19 +15,10 @@ const Layout = ({ loading, loadingTracksError }) => {
     <>
       <S.Wrapper>
       <S.Container>
-        <S.Main>
-          <MainNav />
-             <S.MainCenterblock>
-
-                 <Outlet />
-              
-              </S.MainCenterblock>
-                 <Sidebar
-            loading = {loading}
-            loadingTracksError={loadingTracksError}
-                />
-        </S.Main>
-
+       <S.Main>
+       <MainNav />
+                 <Outlet />  
+       </S.Main>
         {currentTrack && (
           <AudioPlayer loading = {loading} currentTrack={currentTrack} />
         )}

@@ -1,9 +1,10 @@
 import { TrackList } from '../trackList/TrackList.js'
 import { Filter } from '../trackFilter/TrackFilters.jsx'
+import { Sidebar, SidebarCategory} from '../sidebar/Sidebar.js'
 import { CenterblockSearch } from '../centerblockSearch/CenterblockSearch.js'
 import { useState, useEffect } from 'react'
 import { TrackListTitle } from '../trackListTitle/TrackListTitle.jsx'
-
+import * as S from "./TopIndex.styles";
 import {
   allTracksSelector,
   shuffleAllTracksSelector,
@@ -26,7 +27,6 @@ export function Index() {
   const shuffle = useSelector(shuffleSelector)
   const shuffleAllTracks = useSelector(shuffleAllTracksSelector)
   const arrayTracksAll = shuffle ? shuffleAllTracks : tracks
-
   const handleCurrentTrack = (track) => {
     const indexCurrentTrack = arrayTracksAll.indexOf(track)
     dispatch(setCurrentTrack({ track, indexCurrentTrack }))
@@ -51,7 +51,8 @@ export function Index() {
   }, [data])
 
   return (
-   <> 
+   <>  
+     <S.MainCenterblock>
             <CenterblockSearch props="Треки" />
             <Filter />
             <TrackListTitle />
@@ -61,8 +62,9 @@ export function Index() {
               handleCurrentTrack={handleCurrentTrack}
               loadingTracksError={loadingTracksError}
             />
-         
-
+      </S.MainCenterblock>
+             <Sidebar isLoading = {isLoading}  loadingTracksError={loadingTracksError}  props = {<SidebarCategory  isLoading = {isLoading}/>} />
+                   
 </> 
   )
 }

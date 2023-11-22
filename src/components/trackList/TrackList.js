@@ -20,7 +20,7 @@ import {
 export function TrackList({
   isLoading,
   tracks,
-  isFavorites,
+  favoritTrack,
   loadingTracksError,
 }) {
   const dispatch = useDispatch()
@@ -72,7 +72,7 @@ export function TrackList({
                     isLoading={isLoading}
                     track={track}
                     tracks={tracks}
-                    isFavorites={isFavorites}
+                    favoritTrack={favoritTrack}
                   />
                 </S.PlaylistItem>
               ))}
