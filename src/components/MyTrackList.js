@@ -11,8 +11,6 @@ import { TrackListTitle } from './trackListTitle/TrackListTitle.jsx'
 import { useGetFavouriteTracksAllQuery } from '../serviseQuery/tracks'
 import { setFavouriteTracksAll, setCurrentPage } from '../store/slices/track'
 import { useEffect } from 'react'
-//import { useContext } from 'react'
-//import { UserContext } from '../Context/UserContext.js'
 import { useState } from 'react'
 
 export function MyTrackList({
@@ -20,12 +18,11 @@ export function MyTrackList({
   handleCurrentTrack,
   setCurrentTrack,
 }) {
-  //const navigate = useNavigate()
-  //const { user } = useContext(UserContext)
+  
   const dispatch = useDispatch()
   const { data, error} = useGetFavouriteTracksAllQuery()
   const favouritesTracks = useSelector(favouritesTracksSelector)
-  //const currentTrack = useSelector(CurrentTrackSelector)
+
   const favoritTrack = useSelector(favoritTrackSelector)
   const [isLoading, setisLoading] = useState(true)
   console.log(favouritesTracks )
@@ -36,11 +33,7 @@ export function MyTrackList({
     }
   }, [data])
    console.log(data)
-  /*const handleLogOut = () => {
-    localStorage.clear()
-    navigate('/', { replace: true })
-  }*/
-
+ 
   useEffect(() => {
     const timer = setTimeout(() => {
       setisLoading(false)

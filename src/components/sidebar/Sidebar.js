@@ -1,15 +1,15 @@
 import * as S from './Sidebar.styles.js'
 import { NavLink } from 'react-router-dom'
-import { categoryArr } from '../utilits/categoryes.js'
+import { CategoryArr } from '../utilits/categoryes.js'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../Context/UserContext.js'
 
 export function SidebarCategory ({isLoading, loadingTracksError}){
-  const fullCategory = categoryArr.map((category) => (
+  const fullCategory = CategoryArr.map((category) => (
     <S.SidebarItem key={category.id}>
       {!isLoading && !loadingTracksError ? (
-        <NavLink to={`/category/${category.id}`}>
+        <NavLink to={`category/${category.id}`}>
           <S.SidebarImg src={category.img} alt={category.alt} />
         </NavLink>
       ) : (

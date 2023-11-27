@@ -76,7 +76,7 @@ export const AppRoutes = ({
           }
         />
         <Route
-          path="category/:id"
+          path="index/category/:id"
           element={
             <Category
               tracks={tracks}

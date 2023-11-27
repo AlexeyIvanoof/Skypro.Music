@@ -25,7 +25,8 @@ export function Track({
   const auth = JSON.parse(localStorage.getItem('user'))
   const isUserLike = Boolean(
     track?.stared_user?.find((user) => user.id === auth.id),
-  )
+  );
+  console.log(auth.id)
   const [isLiked, setIsLiked] = useState(isUserLike)
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export function Track({
     setIsLiked(true)
     await setLike({ id }).unwrap()
   }
-
+  
   const handleDislike = async (id) => {
     setIsLiked(false)
     await setDislike({ id }).unwrap()

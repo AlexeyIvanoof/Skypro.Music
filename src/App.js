@@ -70,11 +70,11 @@ export default function App() {
     getAllTracks()
   }, [])
 
-  const [user, setUser] = useState(localStorage.getItem('user') || null)
+  const [user, setUser] = useState(localStorage.getItem('user', 'id') || null)
 
   const handleLogout = () => {
     localStorage.removeItem('user')
-    localStorage.removeItem('/')
+    localStorage.removeItem('auth')
     window.location.href = '/'
   }
 

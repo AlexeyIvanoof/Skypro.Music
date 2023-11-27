@@ -40,7 +40,7 @@ export function AuthPage({ setUser }) {
     try {
       const response = await LoginApi(email, password);
       setUser(response.username);
-      localStorage.setItem("user", JSON.stringify(response.username));
+      localStorage.setItem("user", JSON.stringify(response));
       responseToken();
       setOffButton(true);
       navigate("/Layout/Index");

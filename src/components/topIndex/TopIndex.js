@@ -7,30 +7,24 @@ import { TrackListTitle } from '../trackListTitle/TrackListTitle.jsx'
 import * as S from "./TopIndex.styles";
 import {
   allTracksSelector,
-  shuffleAllTracksSelector,
-  shuffleSelector,
+  filtersPlaylistSelector
 } from '../../store/selectors/track.js'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   setAllTracks,
-  setCurrentTrack,
   setCurrentPage,
 } from '../../store/slices/track.js'
 import { useGetTracksAllQuery } from '../../serviseQuery/tracks.jsx'
 
 export function Index() {
   const dispatch = useDispatch()
-
   const [isLoading, setisLoading] = useState(true)
-  const tracks = useSelector(allTracksSelector)
-  const [loadingTracksError, setLoadingTracksError] = useState(null)
-  const shuffle = useSelector(shuffleSelector)
-  const shuffleAllTracks = useSelector(shuffleAllTracksSelector)
-  const arrayTracksAll = shuffle ? shuffleAllTracks : tracks
-  const handleCurrentTrack = (track) => {
-    const indexCurrentTrack = arrayTracksAll.indexOf(track)
-    dispatch(setCurrentTrack({ track, indexCurrentTrack }))
-  }
+ 
+  
+  const tracksAll = useSelector(allTracksSelector);
+  const { data, isError } = useGetTracksAllQuery()
+  const filtre = useSelector(filtersPlaylistSelector);
+ 
  
   useEffect(() => {
       const timer = setTimeout(() => {
@@ -38,9 +32,21 @@ export function Index() {
       }, 2000)
       return () => clearTimeout(timer)
     },[])
- 
 
-  const { data } = useGetTracksAllQuery()
+    const tracks =
+    filtre?.isActiveSort ||
+    filtre?.isActiveAuthors ||
+    filtre?.isActiveGenres ||
+    filtre?.isActiveSearch
+      ? filtre?.filterTracksArr
+      : tracksAll;
+  
+  useEffect(() => {
+    console.log(data);
+    dispatch(setAllTracks(data));
+  }, [filtre.isActiveSort, tracks]);
+
+  
 
   useEffect(() => {
     if (data) {
@@ -59,11 +65,10 @@ export function Index() {
             <TrackList
               isLoading={isLoading}
               tracks={tracks}
-              handleCurrentTrack={handleCurrentTrack}
-              loadingTracksError={loadingTracksError}
+              Error={isError}
             />
       </S.MainCenterblock>
-             <Sidebar isLoading = {isLoading}  loadingTracksError={loadingTracksError}  props = {<SidebarCategory  isLoading = {isLoading}/>} />
+             <Sidebar isLoading = {isLoading}  Error={isError}  props = {<SidebarCategory  isLoading = {isLoading}/>} />
                    
 </> 
   )

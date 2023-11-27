@@ -10,3 +10,5 @@ export const currentPlaylistSelector = (store) => store.tracks.currentPlaylist;
 export const currentPageSelector = (store) => store.tracks.currentPage;
 export const tokenSelector = (store) => store.auth.accessToken;
 export const favoritTrackSelector = (store)=> store.tracks.favoritTrack;
+export const filtersPlaylistSelector = (store) => store.tracks.FiltersPlaylist;
+export const categoryArrSelector = (store) => store.tracks.categoryArr;

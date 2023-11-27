@@ -61,8 +61,8 @@ export const tracksQuery = createApi({
   tagTypes: ["Tracks", "Favorites"],
   baseQuery: baseQueryWithReauth,
 
-  endpoints: (build) => ({
-    getTracksAll: build.query({
+  endpoints: (builder) => ({
+    getTracksAll: builder.query({
       query: () =>
        "catalog/track/all/",
       providesTags: (result) =>
@@ -73,7 +73,7 @@ export const tracksQuery = createApi({
             ]
           : [{ type: "Tracks", id: "LIST" }],
     }),
-    getFavouriteTracksAll: build.query({
+    getFavouriteTracksAll: builder.query({
       query: () => "catalog/track/favorite/all/",
       providesTags: (result) =>
         result
@@ -84,7 +84,7 @@ export const tracksQuery = createApi({
           : [{ type: "Tracks", id: "LIST" }],
     }),
 
-    setLike: build.mutation({
+    setLike: builder.mutation({
       query: (track) => ({
         url: `catalog/track/${track.id}/favorite/`,
         method: "POST",
@@ -95,7 +95,7 @@ export const tracksQuery = createApi({
       ],
     }),
 
-    setDislike: build.mutation({
+    setDislike: builder.mutation({
       query: (track) => ({
         url: `catalog/track/${track.id}/favorite/`,
         method: "DELETE",
@@ -105,6 +105,17 @@ export const tracksQuery = createApi({
         { type: "Tracks", id: "LIST" },
       ],
     }),
+
+    getSelections: builder.query({
+      query: (id) => `catalog/selection/${id}/`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.items.map(({ id }) => ({ type: "Selections", id })),
+              { type: "Selections", id: "LIST" },
+            ]
+          : [{ type: "Selections", id: "LIST" }],
+    }),
   }),
 });
 
@@ -113,4 +124,5 @@ export const {
   useGetFavouriteTracksAllQuery,
   useSetLikeMutation,
   useSetDislikeMutation,
+  useGetSelectionsQuery,
 } = tracksQuery;

@@ -15,7 +15,7 @@ export function PlayerTrackPlay ({currentTrack}) {
   const isUserLike = Boolean(
     currentTrack?.stared_user?.find((user) => user.id === auth.id)
   );
-  console.log(auth.id);
+  //console.log(auth.id);
   const [isLiked, setIsLiked] = useState(isUserLike);
   useEffect(() => {
     if (currentTrack?.stared_user) {

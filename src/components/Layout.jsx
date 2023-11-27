@@ -8,7 +8,7 @@ import  {MainNav}  from "./navMenu/NavMenu";
 import AudioPlayer from "./audioPlayer/AudioPlayer"
 
 
-const Layout = ({ loading, loadingTracksError }) => {
+const Layout = ({ loading }) => {
   const currentTrack = useSelector(CurrentTrackSelector);
   
   return (
