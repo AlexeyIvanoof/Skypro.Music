@@ -4,7 +4,7 @@ import { Sidebar } from './sidebar/Sidebar.js'
 import { CenterblockSearch } from './centerblockSearch/CenterblockSearch.js'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  favoritTrackSelector,
+  filtersPlaylistSelector,
   favouritesTracksSelector,
 } from '../store/selectors/track.js'
 import { TrackListTitle } from './trackListTitle/TrackListTitle.jsx'
@@ -13,8 +13,8 @@ import { setFavouriteTracksAll, setCurrentPage } from '../store/slices/track'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
-export function MyTrackList({
-  loadingTracksError,
+export function MyTrackList(){
+ /* loadingTracksError,
   handleCurrentTrack,
   setCurrentTrack,
 }) {
@@ -32,8 +32,33 @@ export function MyTrackList({
       dispatch(setCurrentPage('Favorites'))
     }
   }, [data])
-   console.log(data)
+   console.log(data)*/
+   const [isLoading, setisLoading] = useState(true)
+   const dispatch = useDispatch();
+   const filter = useSelector(filtersPlaylistSelector);
+   const { data, error } = useGetFavouriteTracksAllQuery();
+   const favouritesTracks = useSelector(favouritesTracksSelector);
  
+   const tracks =
+     filter?.isActiveSort ||
+     filter?.isActiveAuthors ||
+     filter?.isActiveGenres ||
+     filter?.isActiveSearch
+       ? filter?.filterTracksArr
+       : favouritesTracks;
+ 
+   useEffect(() => {
+     dispatch(setFavouriteTracksAll(data));
+   }, [filter.isActiveSort, tracks]);
+ 
+   useEffect(() => {
+     if (data) {
+       dispatch(setFavouriteTracksAll(data));
+       dispatch(setCurrentPage("Favorites"));
+     }
+   }, [data]);
+ 
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setisLoading(false)
@@ -48,18 +73,14 @@ export function MyTrackList({
       
         <TrackListTitle />
         <TrackList
-          isLoading={isLoading}
-          handleCurrentTrack={handleCurrentTrack}
-          loadingTracksError={loadingTracksError}
-          setCurrentTrack={setCurrentTrack}
-          currentTrack = {favoritTrack}
-          tracks={favouritesTracks}
-          error={error}
+         tracks={favouritesTracks}
+         error={error}
+         isLoading={isLoading}
         />
       </S.MainCenterblock>
       <Sidebar
             isLoading = {isLoading}
-            loadingTracksError={loadingTracksError}
+            error={error}
                 />
       </>
   )

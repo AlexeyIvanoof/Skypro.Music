@@ -39,7 +39,7 @@ export function AuthPage({ setUser }) {
   const handleLogin = async () => {
     try {
       const response = await LoginApi(email, password);
-      setUser(response.username);
+      setUser(response);
       localStorage.setItem("user", JSON.stringify(response));
       responseToken();
       setOffButton(true);
@@ -58,8 +58,8 @@ export function AuthPage({ setUser }) {
       try {
         const response = await RegistrationApi(email, password);
         setOffButton(true);
-        setUser(response.username);
-        localStorage.setItem("user",JSON.stringify(response.username));
+        setUser(response);
+        localStorage.setItem("user",JSON.stringify(response));
         responseToken();
         navigate("/");
       } catch (currentError) {

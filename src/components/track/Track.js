@@ -100,7 +100,7 @@ export function Track({
                         click={() => {
                           toggleLikeDislike(track?.id)
                         }}
-                        isActive={isLiked}
+                        isActive = {isLiked}
                       />
 
                       <S.TrackTimeText>
