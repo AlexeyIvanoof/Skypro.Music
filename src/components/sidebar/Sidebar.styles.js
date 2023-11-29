@@ -75,8 +75,8 @@ justify-content: flex-start;
   `
   
   export const SidebarImg  = styled.img `
-    width: 100%;
-    height: auto;
+    width: 250px;
+    height: 150px;
   `
   const blink = keyframes`
   from {

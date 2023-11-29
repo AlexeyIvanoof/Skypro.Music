@@ -26,9 +26,11 @@ export function Category({loadingTracksError,}) {
     filtre?.isActiveSort || filtre?.isActiveAuthors || filtre?.isActiveSearch
       ? filtre?.filterTracksArr
       : categoryArr;
+
   useEffect(() => {
     dispatch(setCategoryArr(data?.items));
   }, [filtre.isActiveSort, tracks]);
+  
   useEffect(() => {
     if (data) {
       dispatch(setCurrentPage("Category"));
