@@ -2,7 +2,7 @@ import * as S from './Track.styles.js'
 import { formatTime } from '../../helpers.js'
 import { useSelector } from 'react-redux'
 import { isPlayingSelector } from '../../store/selectors/track.js'
-import { CurrentTrackSelector, favoritTrackSelector } from '../../store/selectors/track.js'
+import { CurrentTrackSelector } from '../../store/selectors/track.js'
 import { useEffect, useState } from 'react'
 import { AudioPlayerIcons } from '../audioPlayer/AudioPlayerIcons/AudioPlayerIcons.jsx'
 import {
@@ -15,7 +15,7 @@ export function Track({
   isLoading,
   track
 }) {
-  const favoritTrack = useSelector(favoritTrackSelector)
+
   const currentTrack = useSelector(CurrentTrackSelector)
   const isPlaying = useSelector(isPlayingSelector)
 
@@ -25,7 +25,7 @@ export function Track({
   const isUserLike = Boolean(
     track?.stared_user?.find((user) => user.id === auth.id),
   );
-  console.log(auth.id)
+  //console.log(auth.id)
   const [isLiked, setIsLiked] = useState(isUserLike)
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export function Track({
                 <S.TrackTitle>
                   {!isLoading ? (
                     <S.TrackTitleImage>
-                      {(currentTrack && currentTrack.id === track.id) || (favoritTrack && favoritTrack.id === track.id) ? (
+                      {(currentTrack && currentTrack.id === track.id) ? (
                         <S.PointPlaying $playing={isPlaying} />
                       ) : (
                         <S.TrackTitleSvg alt="music">

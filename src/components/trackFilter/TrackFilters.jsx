@@ -1,5 +1,5 @@
 import React from "react";
-//import uniq from "lodash/uniq";
+import uniq from "lodash/uniq";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as S from "./TrackFilters.styles";
@@ -7,7 +7,7 @@ import { TracksFilterCategory } from "../TracksFilterCategory/TrackFilterCategor
 import { setFilterPlaylist } from "../../store/slices/track";
 import { filtersPlaylistSelector } from "../../store/selectors/track";
 
-export function Filter({ currentPage }) {
+export function Filter({ currentPage, selectedArrListFilter }) {
   const dispatch = useDispatch();
   const [activeCategoryFilter, setActiveCategoryFilter] = useState("");
   const selectedFiltersPlaylist = useSelector(filtersPlaylistSelector);
@@ -27,13 +27,9 @@ export function Filter({ currentPage }) {
         <TracksFilterCategory
           nameCategory="исполнителю"
           numberSelectedValues={selectedFiltersPlaylist?.authors.length}
-          content={
-           ['Alexander Nakarada', 'Frank Schroter',
-           'Kevin Macleod', 'Mixkit', 'Waltz Piano',
-          'Winniethemoog', 'AFM', 'Bobby Marleni',
-          'Brian Holtz', 'Fanz', 
-          ] 
-          .map((author) => (
+          content={uniq(
+            selectedArrListFilter?.map((track) => track?.author)
+          ).map((author) => (
             <S.FilterItem
               key={author}
               onClick={() => {
@@ -53,7 +49,9 @@ export function Filter({ currentPage }) {
             isActiveCategory={activeCategoryFilter}
             setActiveCategory={setActiveCategoryFilter}
             numberSelectedValues={selectedFiltersPlaylist?.genres.length}
-            content={['Электронная музыка', 'Классическая музыка', 'Рок музыка'].map((genre) => (
+            content={uniq(
+              selectedArrListFilter?.map((track) => track.genre)
+            ).map((genre) => (
               <S.FilterItem
                 key={genre}
                 onClick={() => {
@@ -94,3 +92,4 @@ export function Filter({ currentPage }) {
     </S.CenterBlockFilter>
   );
 }
+

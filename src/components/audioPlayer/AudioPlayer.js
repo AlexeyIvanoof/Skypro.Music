@@ -43,6 +43,7 @@ function AudioPlayer({ currentTrack, isLoading }) {
   const togglePlay = isPlaying ? handleStop : handleStart
   const arrayTracksAll = shuffle ? shuffleAllTracks : tracks
 
+
   useEffect(() => {
     handleStart()
     audioRef.current.onended = () => {
@@ -92,7 +93,7 @@ function AudioPlayer({ currentTrack, isLoading }) {
       )
     }
   }
-
+ 
   return (
     <S.Bar>
       <audio

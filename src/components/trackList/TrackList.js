@@ -9,6 +9,8 @@ import {
   currentPageSelector,
   allTracksSelector,
   favouritesTracksSelector,
+  filtersPlaylistSelector,
+  categoryArrSelector
 } from '../../store/selectors/track'
 
 import {
@@ -20,9 +22,9 @@ import {
 export function TrackList({
   isLoading,
   tracks,
-  favoritTrack,
   loadingTracksError,
-}) {
+})
+ {
   const dispatch = useDispatch()
   const shuffle = useSelector(shuffleSelector)
   const allTracks = useSelector(allTracksSelector)
@@ -31,27 +33,40 @@ export function TrackList({
   const shuffleAllTracks = useSelector(shuffleAllTracksSelector)
   const currentPage = useSelector(currentPageSelector)
   const arrayTracksAll = shuffle ? shuffleAllTracks : currentPlaylist
+  const filtersPlaylist = useSelector(filtersPlaylistSelector);
+  const categoryArr = useSelector(categoryArrSelector);
 
   const handleCurrentTrack = (track) => {
-    if (currentPage === 'Index') {
-      dispatch(setCurrentPlaylist(allTracks))
+    if (!filtersPlaylist.isActiveSort && !filtersPlaylist?.isActiveAuthors) {
+ 
+    if (currentPage === "Index") {
+      dispatch(setCurrentPlaylist(allTracks));
+      console.log(allTracks)
     }
-    if (currentPage === 'Favorites') {
-      dispatch(setCurrentPlaylist(favouritesTracks))
+    if (currentPage === "Favorites") {
+      dispatch(setCurrentPlaylist(favouritesTracks));
+      console.log(favouritesTracks)
     }
+    if (currentPage === "Category") {
+      dispatch(setCurrentPlaylist(categoryArr));
+      console.log(categoryArr)
+    }
+  } else {
+    dispatch(setCurrentPlaylist(filtersPlaylist.filterTracksArr));
+  }
 
     if (shuffle) {
-      dispatch(toggleShuffleTrack({ shuffle }))
+      dispatch(toggleShuffleTrack({ shuffle }));
     }
 
-    const indexCurrentTrack = arrayTracksAll.indexOf(track)
-    dispatch(setCurrentTrack({ track, indexCurrentTrack }))
-    console.log(track)
-  }
+    const indexCurrentTrack = arrayTracksAll.indexOf(track);
+    dispatch(setCurrentTrack({ track, indexCurrentTrack }));
+  };
 
   return (
     <>
       <S.CenterblockContent>
+     
         {loadingTracksError ? (
           <div>Не удалось загрузить плейлист, попробуйте позже</div>
         ) : (
@@ -72,7 +87,7 @@ export function TrackList({
                     isLoading={isLoading}
                     track={track}
                     tracks={tracks}
-                    favoritTrack={favoritTrack}
+                    
                   />
                 </S.PlaylistItem>
               ))}

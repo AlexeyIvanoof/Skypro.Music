@@ -7,7 +7,8 @@ import { TrackListTitle } from '../trackListTitle/TrackListTitle.jsx'
 import * as S from "./TopIndex.styles";
 import {
   allTracksSelector,
-  filtersPlaylistSelector
+  filtersPlaylistSelector,
+  currentPageSelector
 } from '../../store/selectors/track.js'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -19,8 +20,8 @@ import { useGetTracksAllQuery } from '../../serviseQuery/tracks.jsx'
 export function Index() {
   const dispatch = useDispatch()
   const [isLoading, setisLoading] = useState(true)
- 
-  
+  const currentPage = useSelector(currentPageSelector)
+  const allTracks = useSelector(allTracksSelector)
   const tracksAll = useSelector(allTracksSelector);
   const { data, isError } = useGetTracksAllQuery()
   const filtre = useSelector(filtersPlaylistSelector);
@@ -42,7 +43,7 @@ export function Index() {
       : tracksAll;
   
   useEffect(() => {
-    console.log(data);
+    //console.log(data);
     dispatch(setAllTracks(data));
   }, [filtre.isActiveSort, tracks]);
 
@@ -50,7 +51,7 @@ export function Index() {
 
   useEffect(() => {
     if (data) {
-      console.log(data)
+      //console.log(data)
       dispatch(setAllTracks(data))
       dispatch(setCurrentPage('Index'))
     }
@@ -60,8 +61,14 @@ export function Index() {
    <>  
      <S.MainCenterblock>
             <CenterblockSearch props="Треки" />
-            <Filter />
-            <TrackListTitle />
+            <Filter 
+        selectedArrListFilter={
+          currentPage === "Index"
+            ? allTracks
+            : tracks    
+        }
+        currentPage={currentPage}/>
+         <TrackListTitle />
             <TrackList
               isLoading={isLoading}
               tracks={tracks}
