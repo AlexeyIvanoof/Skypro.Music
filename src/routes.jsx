@@ -40,7 +40,6 @@ export const AppRoutes = ({
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
         
       <Route 
-        path="/Layout" 
         element={
          <Layout
          setUser={setUser}

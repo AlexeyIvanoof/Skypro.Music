@@ -43,7 +43,7 @@ export function AuthPage({ setUser }) {
       localStorage.setItem("user", JSON.stringify(response));
       responseToken();
       setOffButton(true);
-      navigate("/Layout/Index");
+      navigate("/Index");
     } catch (currentError) {
       setError(currentError.message);
     } finally {
