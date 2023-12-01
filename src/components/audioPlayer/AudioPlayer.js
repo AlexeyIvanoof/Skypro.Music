@@ -15,14 +15,14 @@ import {
 } from '../../store/slices/track.js'
 import {
   isPlayingSelector,
-  allTracksSelector,
+  currentPlaylistSelector,
   indexCurrentTrackSelector,
   shuffleAllTracksSelector,
   shuffleSelector,
 } from '../../store/selectors/track.js'
 
 function AudioPlayer({ currentTrack, isLoading }) {
-  const tracks = useSelector(allTracksSelector)
+  const tracks = useSelector(currentPlaylistSelector);
   const dispatch = useDispatch()
   const isPlaying = useSelector(isPlayingSelector)
   const shuffle = useSelector(shuffleSelector)
