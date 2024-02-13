@@ -6,7 +6,7 @@ import ArticleInfo from '../../components/ads/ArticleInfo/ArticleInfo'
 import { useGetAdvQuery, useGetCommentsAdvQuery } from '../../serviceQuery/adv'
 
 //Страница товара
-export default function Article({ isLoading }) {
+export default function Article({ isLoading })  {
   const { id } = useParams()
   const { data } = useGetAdvQuery(id)
   const { data: comments } = useGetCommentsAdvQuery(id)
