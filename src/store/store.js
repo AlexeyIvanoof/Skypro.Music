@@ -1,18 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
-import tracksReducer from "./slices/track";
-import authReducers from "./slices/AuthorizationSlice";
-import { tracksQuery } from "../serviseQuery/tracks";
-import { tokenQuery } from "../serviseQuery/token";
+import { configureStore } from '@reduxjs/toolkit'
+import authReduces from './slices/AuthorizationSlice'
+import adsReduces from './slices/adv'
+import { authQuery } from '../serviceQuery/auth'
+import { userQuery } from '../serviceQuery/user'
+import { adsQuery } from '../serviceQuery/adv'
 
 export const store = configureStore({
-  reducer: {
-    tracks: tracksReducer,
-    auth: authReducers,
-    [tracksQuery.reducerPath]: tracksQuery.reducer,
-    [tokenQuery.reducerPath]: tokenQuery.reducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(tracksQuery.middleware)
-      .concat(tokenQuery.middleware),
-});
+    reducer: {
+        auth: authReduces,
+        ads: adsReduces,
+        [authQuery.reducerPath]: authQuery.reducer,
+        [userQuery.reducerPath]: userQuery.reducer,
+        [adsQuery.reducerPath]: adsQuery.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware()
+            .concat(authQuery.middleware)
+            .concat(userQuery.middleware)
+            .concat(adsQuery.middleware),
+})
